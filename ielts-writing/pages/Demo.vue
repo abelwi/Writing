@@ -29,12 +29,13 @@
                     {{ demoAnswer }}
                 </p>
 
-                <button
+                <NuxtLink
+                to="/result"
                 class="btn btn-wide btn-md btn-accent px-12 sm:w-2/5 sm:px-20 py-2 sm:py-3 mt-10 mb-14 font-bold rounded-xl drop-shadow-xl shadow-xl"
                 @click="handleClick"
                 >
                 Chấm điểm
-                </button>
+                </NuxtLink>
 
 
             </div>

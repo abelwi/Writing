@@ -38,6 +38,10 @@ export default {
         return {
             state
         };
+    },
+
+    mounted() {
+        console.log(state.answer)
     }
 };
 </script>
