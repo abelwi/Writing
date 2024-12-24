@@ -15,11 +15,11 @@
                 <textarea 
                 class="textarea basis-11/12 h-16 text-md sm:text-lg border-b-2 border-gray-400 focus:border-black focus:outline-none"
                 placeholder="Nhập câu hỏi của bạn..."
-                v-model="question"
+                v-model="state.question"
                 @input="adjustHeight"
                 required
                 ></textarea>
-                <img class="w-4 sm:w-5 h-4 sm:h-5 ml-2 mt-4 cursor-pointer" v-if="question"  src="/images/clear_button.png" alt="clear" @click="clearText">
+                <img class="w-4 sm:w-5 h-4 sm:h-5 ml-2 mt-4 cursor-pointer" v-if="state.question"  src="/images/clear_button.png" alt="clear" @click="clearText">
             </div>
 
             <button
@@ -33,30 +33,39 @@
 </template>
 
 <script>
+import { state } from '~/store/DataStore';
+import { useRouter } from 'vue-router';
 export default {
-    data() {
-        return {
-            question: ''
-        };
-    },
-    methods: {
-        adjustHeight(event) {
+    setup() {
+        const router = useRouter();
+
+        const adjustHeight = (event) => {
             const textarea = event.target;
             textarea.style.height = 'auto';
             textarea.style.height = textarea.scrollHeight + 'px';
-        },
-        clearText() {
-            this.question = '';
-        },
-        checkQuestion() {
-            if(this.question === '') {
+        };
+
+        const clearText = () => {
+            state.question = '';
+        };
+
+        const checkQuestion = () => {
+            if(state.question === '') {
                 alert('Bạn chưa nhập câu hỏi!')
             } else {
-                question = this.question
+                localStorage.setItem('question', state.question);
+                router.push('/writing');
             }
-        }
-    }
-}
+        };
+
+        return {
+            state,
+            adjustHeight,
+            clearText,
+            checkQuestion,
+        };
+    },
+};
 </script>
 
 <style scoped>
