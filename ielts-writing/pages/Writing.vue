@@ -1,4 +1,11 @@
 <template>
+    <NuxtLink
+        to="/question"
+        class="btn btn-outline ml-10 px-3 mt-10 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+    >
+        Quay lại
+    </NuxtLink>
+
     <div class="relative">
         <div class="flex justify-center items-center">
             <div class="box-content w-full sm:w-2/3 text-center">
@@ -58,7 +65,7 @@ export default {
         });
 
         const wordCount = computed(() => {
-            return state.answer.trim().split(/\s+/).filter(word => word.length > 0).length;
+            return (state.answer || '').trim().split(/\s+/).filter(word => word.length > 0).length;
         });
 
         const validateAndCheckAnswer = async () => {
