@@ -29,16 +29,20 @@
                     {{ demoAnswer }}
                 </p>
 
-                <NuxtLink
-                to="/result"
-                class="btn btn-wide btn-md btn-accent px-12 sm:w-2/5 sm:px-20 py-2 sm:py-3 mt-10 mb-14 font-bold rounded-xl drop-shadow-xl shadow-xl"
-                @click="handleClick"
+                <button
+                    class="btn btn-wide btn-md btn-accent px-12 sm:w-2/5 sm:px-20 py-2 sm:py-3 mt-10 mb-14 font-bold rounded-xl drop-shadow-xl shadow-xl"
+                    @click="handleClick"
                 >
-                Chấm điểm
-                </NuxtLink>
-
-
+                    Chấm điểm
+                </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div v-if="state.loading" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div class="text-white text-lg font-semibold">
+            Đang chấm điểm, vui lòng đợi...
         </div>
     </div>
 </template>
@@ -46,14 +50,17 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useMyFunction } from '~/store/Function';
+import { useRouter } from 'vue-router';
 
 export default {
     setup() {
         const { checkAnswer } = useMyFunction();
+        const router = useRouter();
 
         return {
             state,
-            checkAnswer
+            checkAnswer,
+            router,
         }
     },
 
@@ -88,8 +95,27 @@ export default {
 
     methods: {
         async handleClick() {
-            console.log('Button clicked'); // Debug log
-            state.answer = await this.checkAnswer(this.demoAnswer, this.demoQuestion);
+            state.loading = true; // Show loading overlay
+
+            try {
+                // Store demo data in state
+                state.question = this.demoQuestion;
+                state.answer = this.demoAnswer;
+
+                // Call the API with demo data
+                await this.checkAnswer(state.answer, state.question);
+
+                // Navigate to Result.vue after API response
+                this.router.push({
+                    path: '/result',
+                    query: { source: 'demo' }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi chấm điểm.');
+            } finally {
+                state.loading = false; // Hide loading overlay
+            }
         }
     }
 }

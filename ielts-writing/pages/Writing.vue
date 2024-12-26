@@ -47,7 +47,7 @@
 
 <script>
 import { state } from '~/store/DataStore';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useMyFunction } from '~/store/Function';
 import { useRouter } from 'vue-router';
 
@@ -58,6 +58,8 @@ export default {
         const { checkAnswer } = useMyFunction();
 
         onMounted(() => {
+            state.answer = '';
+
             const storedQuestion = localStorage.getItem('question');
             if (storedQuestion) {
                 question.value = storedQuestion;
@@ -77,11 +79,14 @@ export default {
             state.loading = true;
 
             try {
+                state.question = question.value;
                 // Call the API
-                await checkAnswer(state.answer, question.value);
-
+                await checkAnswer(state.answer, state.question);
                 // Navigate to Result.vue
-                router.push('/result');
+                router.push({
+                    path: '/result',
+                    query: { source: 'writing' }, // Pass the source type
+                });
             } catch (error) {
                 console.error('Error:', error);
                 alert('Đã xảy ra lỗi khi chấm điểm.');

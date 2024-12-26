@@ -39,6 +39,10 @@ export default {
     setup() {
         const router = useRouter();
 
+        onMounted(() => {
+            state.question = ''
+        });
+
         const adjustHeight = (event) => {
             const textarea = event.target;
             textarea.style.height = 'auto';
