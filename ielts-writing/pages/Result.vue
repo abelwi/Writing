@@ -1,15 +1,15 @@
 <template>
     <div>
-        <p v-if="source === 'writing'">
+        <div v-if="source === 'writing'">
             <NuxtLink
             to="/writing"
             class="btn btn-outline ml-10 px-3 mt-10 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
             >
                 Quay lại
             </NuxtLink>
-        </p>
+        </div>
 
-        <p v-if="source === 'demo'">
+        <div v-if="source === 'demo'">
             <div class="mt-10 mr-10 flex justify-between">
                 <NuxtLink
                 to="/"
@@ -21,43 +21,86 @@
                     <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Nhập câu hỏi mới >></NuxtLink>
                 </button>
             </div>
-        </p>
+        </div>
     </div>
-    <div class="p-5">    
-        <h2 class="text-lg font-bold">Kết quả đánh giá</h2>
+    <div class="p-5 flex space-x-10">    
+        <div class="w-2/3">
+            <!-- Display question -->
+            <p class="mt-4 mb-10 font-semibold border border-base-content px-5 py-2 rounded-md">
+                {{ currentQuestion }}
+            </p>
 
-        <!-- Display question -->
-        <p class="mt-4">
-            <strong>Câu hỏi:</strong>
-            {{ currentQuestion }}
-        </p>
+            <!-- Display answer -->
+            <p class="mt-4">
+                {{ currentAnswer }}
+            </p>
+        </div>
+        
+        <div v-if="state.apiResult" class="mt-4 w-1/3">
+            <div class="grid grid-cols-5 gap-x-1 text-center mb-10">
+                <div class="border bg-green-600 p-2 rounded-lg text-white space-y-2">
+                    <p class="text-xs px-5">Band Score</p>
+                    <p class="text-3xl font-semibold">{{ state.apiResult.overallBand.score }}</p>
+                </div>
+                <div class="border bg-base-300 p-2 rounded-lg space-y-5">
+                    <p class="text-xs font-thin">Task Response</p>
+                    <p class="font-semibold">{{ state.apiResult.taskAchievement.score }}</p>
+                </div>
+                <div class="border bg-base-300 p-2 rounded-lg space-y-1 px-4">
+                    <p class="text-xs font-thin">Coherence & Cohesion</p>
+                    <p class="font-semibold">{{ state.apiResult.coherenceCohesion.score }}</p>
+                </div>
+                <div class="border bg-base-300 p-2 rounded-lg space-y-5">
+                    <p class="text-xs font-thin">Lexical Resource</p>
+                    <p class="font-semibold">{{ state.apiResult.lexicalResource.score }}</p>
+                </div>
+                <div class="border bg-base-300 p-2 rounded-lg space-y-1">
+                    <p class="text-xs font-thin">Grammatical Range & Accuracy</p>
+                    <p class="font-semibold">{{ state.apiResult.grammaticalRangeAccuracy.score }}</p>
+                </div>
+            </div>
+    
+            <div>
+                <div class="tabs tabs-lifted tabs-lg" role="tablist">
+                    <button class="tab tab-bordered tab-active text-base" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1">Nhận xét chung</button>
+                    <button class="tab tab-bordered text-base" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">Nhận xét tổng thể</button>
+                </div>
 
-        <!-- Display answer -->
-        <p class="mt-4">
-            <strong>Câu trả lời:</strong>
-            {{ currentAnswer }}
-        </p>
-        <div v-if="state.apiResult" class="mt-4">
-            <p><strong>Task Achievement (TA):</strong> {{ state.apiResult.taskAchievement.score }}</p>
-            <p class="text-sm">{{ state.apiResult.taskAchievement.comment }}</p>
+                <div id="panel-1" 
+                role="tabpanel" 
+                aria-labelledby="tab-1" 
+                class="p-5 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8"
+                >
+                    <p>{{ state.apiResult.overallComment }}</p>
+                    <div>
+                        <p class="font-semibold">Những lỗi sai cần lưu ý:</p>
+                        <ul>
+                            <li v-for="(error, index) in state.apiResult.errors" :key="index">{{ error }}</li>
+                        </ul>
+                    </div>
 
-            <p class="mt-4"><strong>Coherence and Cohesion (CC):</strong> {{ state.apiResult.coherenceCohesion.score }}</p>
-            <p class="text-sm">{{ state.apiResult.coherenceCohesion.comment }}</p>
-
-            <p class="mt-4"><strong>Lexical Resource (LR):</strong> {{ state.apiResult.lexicalResource.score }}</p>
-            <p class="text-sm">{{ state.apiResult.lexicalResource.comment }}</p>
-
-            <p class="mt-4"><strong>Grammatical Range and Accuracy (GRA):</strong> {{ state.apiResult.grammaticalRangeAccuracy.score }}</p>
-            <p class="text-sm">{{ state.apiResult.grammaticalRangeAccuracy.comment }}</p>
-
-            <p class="mt-4"><strong>Overall Band:</strong> {{ state.apiResult.overallBand.score }}</p>
-            <p class="mt-4"><strong>Nhận xét tổng thể:</strong> {{ state.apiResult.overallComment }}</p>
-
-            <div class="mt-4">
-                <h3 class="font-semibold">Các lỗi cụ thể:</h3>
-                <ul>
-                    <li v-for="(error, index) in state.apiResult.errors" :key="index">{{ error }}</li>
-                </ul>
+                </div>
+                <div id="panel-2" 
+                role="tabpanel" 
+                aria-labelledby="tab-2" 
+                class="p-5 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8" 
+                hidden
+                >
+                    
+                    <p class="font-semibold">Task Response:</p>
+                    <p>{{ state.apiResult.taskAchievement.comment }}</p>
+            
+                
+                    <p class="font-semibold">Coherence & Cohesion:</p>
+                    <p>{{ state.apiResult.coherenceCohesion.comment }}</p>
+                
+                    <p class="font-semibold">Lexical Resource:</p>
+                    <p>{{ state.apiResult.lexicalResource.comment }}</p>
+                
+                    <p class="font-semibold">Grammatical Range & Accuracy:</p>
+                    <p>{{ state.apiResult.grammaticalRangeAccuracy.comment }}</p>
+               
+                </div>
             </div>
         </div>
 
@@ -68,6 +111,7 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useRoute } from 'vue-router';
+// import { onMounted } from 'vue';
 
 export default {
     setup() {
@@ -86,11 +130,37 @@ export default {
             state,
             source,
             currentQuestion,
-            currentAnswer
+            currentAnswer,
         };
     },
     mounted() {
-        console.log(state.answer)
-    }
+        console.log(state.answer);
+
+        // Tab-switching logic
+        const tabs = document.querySelectorAll('[role="tab"]');
+        const panels = document.querySelectorAll('[role="tabpanel"]');
+
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                // Remove active states from all tabs
+                tabs.forEach((t) => {
+                    t.classList.remove('tab-active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+
+                // Add active state to the clicked tab
+                tab.classList.add('tab-active');
+                tab.setAttribute('aria-selected', 'true');
+
+                // Hide all panels
+                panels.forEach((panel) => panel.setAttribute('hidden', true));
+
+                // Show the corresponding panel
+                const panelId = tab.getAttribute('aria-controls');
+                document.getElementById(panelId).removeAttribute('hidden');
+            });
+        });
+    },
+
 };
 </script>

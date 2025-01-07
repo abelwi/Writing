@@ -83,12 +83,7 @@ export function useMyFunction() {
             });
             const resultObjects = parseResultText(res);
         
-            // Debug: Check the API response and result parsing
-            console.log('Raw API Response:', res);
-            console.log('Parsed Result Objects:', resultObjects);
-        
             state.apiResult = resultObjects; // Update the state
-            console.log('Updated state.apiResult:', state.apiResult);
         } catch (error) {
             console.error('Error details:', error);
             alert('Đã xảy ra lỗi khi gọi API.');
