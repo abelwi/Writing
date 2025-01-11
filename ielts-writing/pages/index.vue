@@ -2,7 +2,7 @@
     <div class="h-full">
       <div class="mt-10 mr-10 flex justify-end">
         <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-          <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Nhập câu hỏi mới >></NuxtLink>
+          <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Chọn bài làm >></NuxtLink>
         </button>
       </div>
 

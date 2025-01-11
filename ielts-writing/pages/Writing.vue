@@ -8,7 +8,7 @@
 
     <div class="relative">
         <div class="flex justify-center items-center">
-            <div class="box-content w-full sm:w-2/3 text-center">
+            <div class="box-content w-full sm:w-5/6 text-center">
                 <p class="ml-1 pl-5 sm:ml-4 sm:pl-40 text-left font-semibold mt-4">Câu hỏi:</p>
                 <p 
                     class="w-5/6 sm:w-2/3 mt-4 px-5 py-3 mx-auto border border-base-content rounded-lg bg-base-300 text-left drop-shadow-lg shadow-inner"
@@ -16,7 +16,7 @@
                     {{ question }}
                 </p>
 
-                <div class="flex justify-between items-end mx-6 sm:mx-44 mt-4">
+                <div class="flex justify-between items-end mx-6 sm:mx-44 mt-10">
                     <p class="font-semibold">Câu trả lời của bạn:</p>
                     <p>{{ wordCount }}/250</p>
                 </div>
@@ -38,8 +38,8 @@
     </div>
 
     <!-- Loading Overlay -->
-    <div v-if="state.loading" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div class="text-white text-lg font-semibold">
+    <div v-if="state.loading" class="fixed inset-0 bg-base-300 flex justify-center items-center">
+        <div class="text-lg font-semibold">
             Đang chấm điểm, vui lòng đợi...
         </div>
     </div>

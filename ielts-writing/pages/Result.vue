@@ -12,13 +12,13 @@
         <div v-if="source === 'demo'">
             <div class="mt-10 mr-10 flex justify-between">
                 <NuxtLink
-                to="/"
+                to="/demo"
                 class="btn btn-outline ml-5 px-3 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
                 >
                 Quay lại
                 </NuxtLink>
                 <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-                    <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Nhập câu hỏi mới >></NuxtLink>
+                    <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Bắt đầu viết >></NuxtLink>
                 </button>
             </div>
         </div>
@@ -136,8 +136,6 @@ export default {
         };
     },
     mounted() {
-        console.log(state.answer);
-
         // Tab-switching logic
         const tabs = document.querySelectorAll('[role="tab"]');
         const panels = document.querySelectorAll('[role="tabpanel"]');

@@ -6,28 +6,20 @@
         Quay lại
     </NuxtLink>
 
-    <div class="flex justify-center items-center">
-        <div class="text-center py-10 mt-16 w-5/6 sm:w-1/2 border-2 border-gray-900 rounded-xl">
-            <h1 class="text-xl sm:text-2xl font-semibold text-center">Luyện tập writing task 2!</h1>
-            <p class="mt-12 mb-3 text-left ml-7 sm:ml-20 font-semibold">Câu hỏi:</p>
+    <div class="mx-20 my-10">
+        <p class="mt-12 mb-3 text-left ml-7 sm:ml-20 font-semibold">Chọn câu hỏi:</p>
 
-            <div class="mb-10 mx-5 sm:mx-32 flex flex-row">
-                <textarea 
-                class="textarea basis-11/12 h-16 text-md sm:text-lg border-b-2 border-gray-400 focus:border-black focus:outline-none"
-                placeholder="Nhập câu hỏi của bạn..."
-                v-model="state.question"
-                @input="adjustHeight"
-                required
-                ></textarea>
-                <img class="w-4 sm:w-5 h-4 sm:h-5 ml-2 mt-4 cursor-pointer" v-if="state.question"  src="/images/clear_button.png" alt="clear" @click="clearText">
-            </div>
-
-            <button
-            class="btn btn-wide btn-md btn-accent py-2 sm:py-3 font-bold rounded-xl shadow-xl"
-            @click="checkQuestion"
-            >
-                Bắt đầu
-            </button>
+        <div class="mt-4">
+            <ul class="grid grid-cols-2 gap-4">
+                <li 
+                    v-for="(item, index) in questions" 
+                    :key="index" 
+                    class="cursor-pointer px-4 py-2 rounded-lg border border-gray-400 hover:bg-base-300"
+                    @click="selectQuestion(item.question)"
+                >
+                    {{ item.question }}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -35,59 +27,28 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useRouter } from 'vue-router';
+
+import questions from '~/assets/data.json'
 export default {
     setup() {
         const router = useRouter();
 
-        onMounted(() => {
-            state.question = ''
-        });
-
-        const adjustHeight = (event) => {
-            const textarea = event.target;
-            textarea.style.height = 'auto';
-            textarea.style.height = textarea.scrollHeight + 'px';
-        };
-
-        const clearText = () => {
-            state.question = '';
-        };
-
-        const checkQuestion = () => {
-            if(state.question === '') {
-                alert('Bạn chưa nhập câu hỏi!')
-            } else {
-                localStorage.setItem('question', state.question);
-                router.push('/writing');
-            }
+        const selectQuestion = (question) => {
+            state.question = question; // Save the selected question to state
+            localStorage.setItem('question', question); // Store in localStorage
+            router.push('/writing'); // Navigate to writing.vue
         };
 
         return {
             state,
-            adjustHeight,
-            clearText,
-            checkQuestion,
+            questions,
+            selectQuestion,
         };
     },
 };
 </script>
 
 <style scoped>
-  textarea {
-    outline: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    resize: none;
-  }
-  textarea:focus {
-    box-shadow: none;
-  }
-  button {
-    transition: background-color 0.3s ease
-  }
-  button.hover {
-    background-color: #86efac;
-  }
-  </style>
+  
+</style>
 

@@ -7,7 +7,7 @@
           Quay lại
         </NuxtLink>
         <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-            <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Nhập câu hỏi mới >></NuxtLink>
+            <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Bắt đầu viết >></NuxtLink>
         </button>
     </div>
     <div class="relative">
@@ -40,8 +40,8 @@
     </div>
 
     <!-- Loading Overlay -->
-    <div v-if="state.loading" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div class="text-white text-lg font-semibold">
+    <div v-if="state.loading" class="fixed inset-0 bg-base-300 flex justify-center items-center">
+        <div class="text-lg font-semibold">
             Đang chấm điểm, vui lòng đợi...
         </div>
     </div>
