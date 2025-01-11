@@ -26,7 +26,7 @@
     <div class="p-5 flex space-x-10">    
         <div class="w-2/3">
             <!-- Display question -->
-            <p class="mt-4 mb-10 font-semibold border border-base-content px-5 py-2 rounded-md">
+            <p class="mt-4 mb-10 italic font-semibold border border-base-content px-5 py-2 rounded-md">
                 {{ currentQuestion }}
             </p>
 
@@ -69,11 +69,12 @@
                 <div id="panel-1" 
                 role="tabpanel" 
                 aria-labelledby="tab-1" 
-                class="p-5 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8"
+                class="p-5 pt-10 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8 overflow-y-auto"
+                style="max-height: calc(75vh - 120px);"
                 >
                     <p>{{ state.apiResult.overallComment }}</p>
                     <div>
-                        <p class="font-semibold">Những lỗi sai cần lưu ý:</p>
+                        <p class="font-semibold pb-5">Những lỗi sai cần lưu ý:</p>
                         <ul>
                             <li v-for="(error, index) in state.apiResult.errors" :key="index">{{ error }}</li>
                         </ul>
@@ -83,7 +84,8 @@
                 <div id="panel-2" 
                 role="tabpanel" 
                 aria-labelledby="tab-2" 
-                class="p-5 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8" 
+                class="p-5 pt-10 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-5 overflow-y-auto" 
+                style="max-height: calc(75vh - 120px);"
                 hidden
                 >
                     
