@@ -17,9 +17,11 @@
                 >
                 Quay lại
                 </NuxtLink>
-                <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-                    <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Bắt đầu viết >></NuxtLink>
-                </button>
+
+                <NuxtLink to="/question" 
+                class="font-semibold text-md sm:text-lg btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
+                    Bắt đầu viết >>
+                </NuxtLink>
             </div>
         </div>
     </div>
@@ -63,7 +65,7 @@
             <div>
                 <div class="tabs tabs-lifted tabs-lg" role="tablist">
                     <button class="tab tab-bordered tab-active text-base" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1">Nhận xét chung</button>
-                    <button class="tab tab-bordered text-base" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">Nhận xét tổng thể</button>
+                    <button class="tab tab-bordered text-base" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">Nhận xét chi tiết</button>
                 </div>
 
                 <div id="panel-1" 

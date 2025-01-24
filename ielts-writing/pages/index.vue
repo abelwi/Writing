@@ -1,9 +1,10 @@
 <template>
     <div class="h-full">
       <div class="mt-10 mr-10 flex justify-end">
-        <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-          <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Chọn bài làm >></NuxtLink>
-        </button>
+        <NuxtLink to="/question" 
+        class="font-semibold text-md sm:text-lg btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
+          Chọn câu hỏi >>
+        </NuxtLink>
       </div>
 
       <div class="flex justify-center items-center flex-col">
@@ -24,7 +25,7 @@
         </div>
       </div>
       
-      <div class="mt-10 sm:mt-10 bg-base-300 h-screen p-4 shadow-inner">
+      <div class="mt-10 sm:mt-10 bg-base-300 h-52 p-4 shadow-inner">
         <p class="font-semibold text-left ml-2 sm:ml-8 pt-2">P/s:</p>
         <p class="text-left mx-2 sm:mx-14 font-thin">Mình là Lam - người tạo chiếc web nhỏ này cho cậu, hi vọng nó sẽ giúp cậu phần nào.
           Sẽ có khá nhiều thiếu sót, hãy cho mình biết để mình cải thiện nha! ^^
