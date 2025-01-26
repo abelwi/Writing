@@ -131,7 +131,27 @@ export function useMyFunction() {
                 const errorStartIndex = lines.indexOf(line) + 1;
                 const errorEndIndex = lines.findIndex((line) => line.includes('(Error End)'));
                 const errorLines = lines.slice(errorStartIndex, errorEndIndex);
-                resultObjects.errors = errorLines.map((error) => error.trim());
+                resultObjects.errors = errorLines
+                    .filter((entry) => entry.includes('->'))
+                    .map((entry) => {
+                        const parts = entry.split('->').map((part) => part.trim());
+                        if (parts.length === 2) {
+                            const errorPart = parts[0].replace(/^-/, '').replace(/"/g, '').trim();
+                            const correctionSplit = parts[1].split(':').map((part) => part.trim());
+                            const correctPart = correctionSplit[0].replace(/[()"]/g, '').trim();
+                            const explainPart = correctionSplit.length > 1
+                                ? correctionSplit[1].replace(/[()"]/g, '').trim()
+                                : '';
+
+                            return {
+                                error: errorPart,
+                                correct: correctPart,
+                                explain: explainPart,
+                            };
+                        }
+                        return null;
+                    })
+                    .filter(Boolean); // Remove any null entries
             }
         });
             return resultObjects;
