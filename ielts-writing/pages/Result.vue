@@ -65,10 +65,16 @@
                 <div>
                     <div class="tabs tabs-lifted tabs-lg font-semibold" role="tablist">
                         <button class="tab tab-bordered tab-active text-base" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1">
-                            Nhận xét chung
+                            <label class="label cursor-pointer space-x-3">
+                                <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" checked="checked" />
+                                <span>Nhận xét chung</span>
+                            </label>
                         </button>
                         <button class="tab tab-bordered text-base" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">
-                            Nhận xét chi tiết
+                            <label class="label cursor-pointer space-x-3">
+                                <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" checked="checked" />
+                                <span>Nhận xét chi tiết</span>
+                            </label>
                         </button>
                     </div>
 
