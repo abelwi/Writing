@@ -1,11 +1,11 @@
 <template>
-    <div class="h-full">
-      <div class="mt-10 mr-10 flex justify-end">
+    <div class="h-full mt-10">
+      <!-- <div class="mt-10 mr-10 flex justify-end">
         <NuxtLink to="/question" 
         class="font-semibold text-md sm:text-lg btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
           Chọn câu hỏi >>
         </NuxtLink>
-      </div>
+      </div> -->
 
       <div class="flex justify-center items-center flex-col">
         <div>
