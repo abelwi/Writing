@@ -1,18 +1,11 @@
 <template>
     <div class="h-full mt-10">
-      <!-- <div class="mt-10 mr-10 flex justify-end">
-        <NuxtLink to="/question" 
-        class="font-semibold text-md sm:text-lg btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-          Chọn câu hỏi >>
-        </NuxtLink>
-      </div> -->
-
       <div class="flex justify-center items-center flex-col">
         <div>
           <div class="flex justify-center">
             <img class="w-40 h-40 mt-10 sm:w-52 sm:h-52" src="/images/home_logo.png" alt="home_logo">
           </div>
-          <h1 class="font-medium text-xl sm:text-3xl my-4 sm:my-7">Luyện tập Ielts Writing Task 2!</h1>
+          <h1 class="font-medium text-xl sm:text-3xl my-4 sm:my-7">Chấm điểm & Phản hồi Ielts Writing Task 2!</h1>
           <p class="text-sm sm:text-md font-light text-center">Một trang web giúp bạn cải thiện trình độ Writing task 2 của mình!</p>
           <div class="mb-4 sm:mb-7 mt-10 sm:mt-16 flex justify-center">
             <NuxtLink

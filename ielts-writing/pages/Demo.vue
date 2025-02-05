@@ -24,7 +24,6 @@
                 </div>
                 <p
                 class="w-5/6 sm:w-2/3 mt-4 px-5 py-3 mx-auto text-left"
-        
                 >
                     {{ demoAnswer }}
                 </p>
