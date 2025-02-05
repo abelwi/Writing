@@ -83,7 +83,9 @@ export function useMyFunction() {
             });
             const resultObjects = parseResultText(res);
         
-            state.apiResult = resultObjects; // Update the state
+            state.apiResult = resultObjects; 
+
+            localStorage.setItem('apiResult', JSON.stringify(state.apiResult));
         } catch (error) {
             console.error('Error details:', error);
             alert('Đã xảy ra lỗi khi gọi API.');

@@ -38,7 +38,7 @@
                 </p>
             </div>
             
-            <div v-if="state.apiResult" class="w-1/3">
+            <div v-if="localApiResult" class="w-1/3">
                 <div class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
                     <div class="border bg-green-600 p-2 rounded-lg text-white space-y-2">
                         <p class="text-xs px-3">Band Score</p>
@@ -64,23 +64,29 @@
         
                 <div>
                     <div class="tabs tabs-lifted tabs-lg font-semibold" role="tablist">
-                        <button class="tab tab-bordered tab-active text-base" 
-                                role="tab" 
-                                aria-selected="true" 
-                                id="tab-1" 
-                                aria-controls="panel-1"
-                                @click="showTab(1)">
+                        <button 
+                            class="tab tab-bordered text-base"
+                            :class="{ 'tab-active': activeTab === 1 }"
+                            role="tab" 
+                            :aria-selected="activeTab === 1" 
+                            id="tab-1" 
+                            aria-controls="panel-1"
+                            @click="showTab(1)"
+                        >
                             <label class="label cursor-pointer space-x-3">
                                 <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" checked />
                                 <span>Nhận xét chung</span>
                             </label>
                         </button>
-                        <button class="tab tab-bordered text-base" 
-                                role="tab" 
-                                aria-selected="false" 
-                                id="tab-2" 
-                                aria-controls="panel-2"
-                                @click="showTab(2)">
+                        <button 
+                            class="tab tab-bordered text-base"
+                            :class="{ 'tab-active': activeTab === 2 }"
+                            role="tab" 
+                            :aria-selected="activeTab === 2" 
+                            id="tab-2" 
+                            aria-controls="panel-2"
+                            @click="showTab(2)"
+                        >
                             <label class="label cursor-pointer space-x-3">
                                 <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" />
                                 <span>Nhận xét chi tiết</span>
@@ -88,7 +94,7 @@
                         </button>
                     </div>
 
-                    <div v-show="activeTab === 1" 
+                    <div v-if="activeTab === 1" 
                         id="panel-1"
                         ref="panel1"
                         role="tabpanel" 
@@ -116,7 +122,7 @@
                         </div>
                     </div>
 
-                    <div v-show="activeTab === 2" 
+                    <div v-if="activeTab === 2" 
                         id="panel-2" 
                         ref="panel2"
                         role="tabpanel" 
@@ -138,8 +144,6 @@
                     </div>
                 </div>
             </div>
-
-            <p v-else class="text-orange-500">Chưa có dữ liệu đánh giá.</p>
         </div>
     </div>
 </template>
@@ -147,29 +151,44 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useRoute } from 'vue-router';
+import { ref, watch, onMounted } from 'vue';
 
 export default {
     setup() {
         const route = useRoute();
         const source = route.query.source || 'unknown';
 
-        // Use centralized state for question and answer
-        const currentQuestion = source === 'demo' 
-            ? state.question 
-            : state.question;
-        const currentAnswer = source === 'demo' 
-            ? state.answer 
-            : state.answer;
+        const currentQuestion = source === 'demo' ? state.question : state.question;
+        const currentAnswer = source === 'demo' ? state.answer : state.answer;
 
         const activeTab = ref(1);
         const panel1 = ref(null);
         const panel2 = ref(null);
 
-        // Function to switch tabs and reset scroll position
+        // Local reference for API result
+        const localApiResult = ref(null);
+
+        // Load stored data from localStorage when the component mounts
+        onMounted(() => {
+            const storedData = localStorage.getItem('apiResult');
+            if (storedData) {
+                localApiResult.value = JSON.parse(storedData);
+                state.apiResult = localApiResult.value; // Restore state.apiResult
+            }
+        });
+
+        // Watch for changes in state.apiResult and store in localStorage
+        watch(() => state.apiResult, (newVal) => {
+            if (newVal) {
+                localApiResult.value = newVal;
+                localStorage.setItem('apiResult', JSON.stringify(newVal));  // ✅ Corrected this line
+            }
+        }, { deep: true });
+
         const showTab = (tabNumber) => {
             activeTab.value = tabNumber;
 
-            // Reset scroll position of the corresponding tab panel
+            // Reset scroll position
             if (tabNumber === 1 && panel1.value) {
                 panel1.value.scrollTop = 0;
             }
@@ -187,33 +206,34 @@ export default {
             showTab,
             panel1,
             panel2,
+            localApiResult,
         };
     },
-    mounted() {
-        // Tab-switching logic
-        const tabs = document.querySelectorAll('[role="tab"]');
-        const panels = document.querySelectorAll('[role="tabpanel"]');
+    // mounted() {
+    //     // Tab-switching logic
+    //     const tabs = document.querySelectorAll('[role="tab"]');
+    //     const panels = document.querySelectorAll('[role="tabpanel"]');
 
-        tabs.forEach((tab) => {
-            tab.addEventListener('click', () => {
-                // Remove active states from all tabs
-                tabs.forEach((t) => {
-                    t.classList.remove('tab-active');
-                    t.setAttribute('aria-selected', 'false');
-                });
+    //     tabs.forEach((tab) => {
+    //         tab.addEventListener('click', () => {
+    //             // Remove active states from all tabs
+    //             tabs.forEach((t) => {
+    //                 t.classList.remove('tab-active');
+    //                 t.setAttribute('aria-selected', 'false');
+    //             });
 
-                // Add active state to the clicked tab
-                tab.classList.add('tab-active');
-                tab.setAttribute('aria-selected', 'true');
+    //             // Add active state to the clicked tab
+    //             tab.classList.add('tab-active');
+    //             tab.setAttribute('aria-selected', 'true');
 
-                // Hide all panels
-                panels.forEach((panel) => panel.setAttribute('hidden', true));
+    //             // Hide all panels
+    //             panels.forEach((panel) => panel.setAttribute('hidden', true));
 
-                // Show the corresponding panel
-                const panelId = tab.getAttribute('aria-controls');
-                document.getElementById(panelId).removeAttribute('hidden');
-            });
-        });
-    },
+    //             // Show the corresponding panel
+    //             const panelId = tab.getAttribute('aria-controls');
+    //             document.getElementById(panelId).removeAttribute('hidden');
+    //         });
+    //     });
+    // },
 };
 </script>
