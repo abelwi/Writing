@@ -64,13 +64,23 @@
         
                 <div>
                     <div class="tabs tabs-lifted tabs-lg font-semibold" role="tablist">
-                        <button class="tab tab-bordered tab-active text-base" role="tab" aria-selected="true" id="tab-1" aria-controls="panel-1">
+                        <button class="tab tab-bordered tab-active text-base" 
+                                role="tab" 
+                                aria-selected="true" 
+                                id="tab-1" 
+                                aria-controls="panel-1"
+                                @click="showTab(1)">
                             <label class="label cursor-pointer space-x-3">
                                 <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" checked />
                                 <span>Nhận xét chung</span>
                             </label>
                         </button>
-                        <button class="tab tab-bordered text-base" role="tab" aria-selected="false" id="tab-2" aria-controls="panel-2">
+                        <button class="tab tab-bordered text-base" 
+                                role="tab" 
+                                aria-selected="false" 
+                                id="tab-2" 
+                                aria-controls="panel-2"
+                                @click="showTab(2)">
                             <label class="label cursor-pointer space-x-3">
                                 <input type="radio" name="radio-10" class="radio radio-sm checked:bg-orange-500" />
                                 <span>Nhận xét chi tiết</span>
@@ -78,11 +88,13 @@
                         </button>
                     </div>
 
-                    <div id="panel-1" 
-                    role="tabpanel" 
-                    aria-labelledby="tab-1" 
-                    class="px-5 pb-10 pt-8 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8 overflow-y-auto bg-base-100"
-                    style="max-height: calc(75vh - 120px);"
+                    <div v-show="activeTab === 1" 
+                        id="panel-1"
+                        ref="panel1"
+                        role="tabpanel" 
+                        aria-labelledby="tab-1"
+                        class="px-5 pb-10 pt-8 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-8 overflow-y-auto bg-base-100"
+                        style="max-height: calc(75vh - 120px);"
                     >
                         <p>{{ state.apiResult.overallComment }}</p>
                         <div>
@@ -92,34 +104,37 @@
                             </div>
                             <ul class="space-y-10">
                                 <li v-for="(error, index) in state.apiResult.errors" :key="index" class="space-y-3">
-                                    <p class="border p-2 rounded-lg border-orange-500"><strong class="italic">Câu của bạn:</strong> {{ error.error }}</p>
-                                    <p class="border p-2 rounded-lg bg-orange-200"><strong class="italic">Câu AI sửa cho bạn:</strong> {{ error.correct }}</p>
+                                    <p class="border p-2 rounded-lg border-orange-500">
+                                        <strong class="italic">Câu của bạn:</strong> {{ error.error }}
+                                    </p>
+                                    <p class="border p-2 rounded-lg bg-orange-200">
+                                        <strong class="italic">Câu AI sửa cho bạn:</strong> {{ error.correct }}
+                                    </p>
                                     <p><strong class="italic">==> Giải thích:</strong> {{ error.explain }}</p>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div id="panel-2" 
-                    role="tabpanel" 
-                    aria-labelledby="tab-2" 
-                    class="px-5 pt-6 pb-10 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-5 overflow-y-auto bg-base-100" 
-                    style="max-height: calc(75vh - 120px);"
-                    hidden
+
+                    <div v-show="activeTab === 2" 
+                        id="panel-2" 
+                        ref="panel2"
+                        role="tabpanel" 
+                        aria-labelledby="tab-2" 
+                        class="px-5 pt-6 pb-10 border-2 border-base-300 rounded-b-lg mt-[-2px] space-y-5 overflow-y-auto bg-base-100" 
+                        style="max-height: calc(75vh - 120px);"
                     >
-                        
                         <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Task Response</p>
                         <p>{{ state.apiResult.taskAchievement.comment }}</p>
-                
-                    
+
                         <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Coherence & Cohesion</p>
                         <p>{{ state.apiResult.coherenceCohesion.comment }}</p>
-                    
+
                         <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Lexical Resource</p>
                         <p>{{ state.apiResult.lexicalResource.comment }}</p>
-                    
+
                         <p class="font-semibold border border-orange-500 w-2/3 p-2 text-center text-orange-500 rounded-lg">Grammatical Range & Accuracy</p>
                         <p>{{ state.apiResult.grammaticalRangeAccuracy.comment }}</p>
-                
                     </div>
                 </div>
             </div>
@@ -132,7 +147,6 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useRoute } from 'vue-router';
-// import { onMounted } from 'vue';
 
 export default {
     setup() {
@@ -147,11 +161,32 @@ export default {
             ? state.answer 
             : state.answer;
 
+        const activeTab = ref(1);
+        const panel1 = ref(null);
+        const panel2 = ref(null);
+
+        // Function to switch tabs and reset scroll position
+        const showTab = (tabNumber) => {
+            activeTab.value = tabNumber;
+
+            // Reset scroll position of the corresponding tab panel
+            if (tabNumber === 1 && panel1.value) {
+                panel1.value.scrollTop = 0;
+            }
+            if (tabNumber === 2 && panel2.value) {
+                panel2.value.scrollTop = 0;
+            }
+        };
+
         return {
             state,
             source,
             currentQuestion,
             currentAnswer,
+            activeTab,
+            showTab,
+            panel1,
+            panel2,
         };
     },
     mounted() {
@@ -180,6 +215,5 @@ export default {
             });
         });
     },
-
 };
 </script>
