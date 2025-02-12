@@ -81,6 +81,7 @@ export function useMyFunction() {
                 method: 'post',
                 body: JSON.stringify({ message: prompt }),
             });
+
             const resultObjects = parseResultText(res);
         
             state.apiResult = resultObjects; 

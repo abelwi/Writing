@@ -181,7 +181,7 @@ export default {
         watch(() => state.apiResult, (newVal) => {
             if (newVal) {
                 localApiResult.value = newVal;
-                localStorage.setItem('apiResult', JSON.stringify(newVal));  // ✅ Corrected this line
+                localStorage.setItem('apiResult', JSON.stringify(newVal));
             }
         }, { deep: true });
 
@@ -209,31 +209,5 @@ export default {
             localApiResult,
         };
     },
-    // mounted() {
-    //     // Tab-switching logic
-    //     const tabs = document.querySelectorAll('[role="tab"]');
-    //     const panels = document.querySelectorAll('[role="tabpanel"]');
-
-    //     tabs.forEach((tab) => {
-    //         tab.addEventListener('click', () => {
-    //             // Remove active states from all tabs
-    //             tabs.forEach((t) => {
-    //                 t.classList.remove('tab-active');
-    //                 t.setAttribute('aria-selected', 'false');
-    //             });
-
-    //             // Add active state to the clicked tab
-    //             tab.classList.add('tab-active');
-    //             tab.setAttribute('aria-selected', 'true');
-
-    //             // Hide all panels
-    //             panels.forEach((panel) => panel.setAttribute('hidden', true));
-
-    //             // Show the corresponding panel
-    //             const panelId = tab.getAttribute('aria-controls');
-    //             document.getElementById(panelId).removeAttribute('hidden');
-    //         });
-    //     });
-    // },
 };
 </script>

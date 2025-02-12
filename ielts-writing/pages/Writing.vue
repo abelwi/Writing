@@ -71,8 +71,8 @@ export default {
         });
 
         const validateAndCheckAnswer = async () => {
-            if (wordCount.value <250) {
-                alert('Bạn chưa nhập câu trả lời đủ 250 từ!');
+            if (wordCount.value <200) {
+                alert('Bạn phải nhập ít nhất 200 từ!');
                 return;
             }
             // Set loading to true
