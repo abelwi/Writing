@@ -38,7 +38,7 @@
                 </p>
             </div>
             
-            <div v-if="localApiResult" class="w-1/3">
+            <div v-if="state.apiResult" class="w-1/3">
                 <div class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
                     <div class="border bg-green-600 p-2 rounded-lg text-white space-y-2">
                         <p class="text-xs px-3">Band Score</p>
@@ -151,10 +151,11 @@
 <script>
 import { state } from '~/store/DataStore';
 import { useRoute } from 'vue-router';
-import { ref, watch, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 export default {
     setup() {
+        const router = useRouter();
         const route = useRoute();
         const source = route.query.source || 'unknown';
 
@@ -165,25 +166,13 @@ export default {
         const panel1 = ref(null);
         const panel2 = ref(null);
 
-        // Local reference for API result
-        const localApiResult = ref(null);
-
-        // Load stored data from localStorage when the component mounts
+        // Redirect to landing page if there's no API result
         onMounted(() => {
-            const storedData = localStorage.getItem('apiResult');
-            if (storedData) {
-                localApiResult.value = JSON.parse(storedData);
-                state.apiResult = localApiResult.value; // Restore state.apiResult
-            }
+        if (!state.apiResult) {
+            router.push('/');
+        }
         });
 
-        // Watch for changes in state.apiResult and store in localStorage
-        watch(() => state.apiResult, (newVal) => {
-            if (newVal) {
-                localApiResult.value = newVal;
-                localStorage.setItem('apiResult', JSON.stringify(newVal));
-            }
-        }, { deep: true });
 
         const showTab = (tabNumber) => {
             activeTab.value = tabNumber;
@@ -206,7 +195,6 @@ export default {
             showTab,
             panel1,
             panel2,
-            localApiResult,
         };
     },
 };

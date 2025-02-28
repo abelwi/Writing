@@ -7,14 +7,14 @@
     </NuxtLink>
 
     <div class="mx-20 my-10">
-        <p class="mt-12 mb-3 text-left ml-7 sm:ml-20 font-semibold">Chọn câu hỏi:</p>
+        <!-- <p class="mt-12 mb-3 text-left ml-7 sm:ml-20 font-semibold">Chọn câu hỏi:</p> -->
 
         <div class="mt-4">
-            <ul class="grid grid-cols-2 gap-4">
+            <ul class="grid grid-cols-2 gap-10">
                 <li 
                     v-for="(item, index) in questions" 
                     :key="index" 
-                    class="cursor-pointer px-4 py-2 rounded-lg border border-gray-400 hover:bg-base-300"
+                    class="cursor-pointer px-4 py-4 rounded-lg border border-orange-400 shadow-lg drop-shadow-xl hover:bg-base-300"
                     @click="selectQuestion(item.question)"
                 >
                     {{ item.question }}

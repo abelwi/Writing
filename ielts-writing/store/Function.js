@@ -60,17 +60,17 @@ export function useMyFunction() {
 
         Provide scores and comments for the range and accuracy of the 4 criteria in the following format:
 
-        Task Achievement (TA): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm bằng tiếng việt, cho thêm ví dụ cải thiện)
-        Coherence and Cohesion (CC): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm bằng tiếng việt, cho thêm ví dụ cải thiện)
-        Lexical Resource (LR): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm bằng tiếng việt, cho thêm ví dụ cải thiện)
-        Grammatical Range and Accuracy (GRA): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm bằng tiếng việt, cho thêm ví dụ cải thiện)
+        Task Achievement (TA): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
+        Coherence and Cohesion (CC): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band, cho thêm ví dụ cải thiện bằng Tiếng Việt)
+        Lexical Resource (LR): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
+        Grammatical Range and Accuracy (GRA): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
         Overall Band: (score average of all 4 criteria, rounded to the nearest 0.5) 
-        Nhận xét tổng thể: (đưa lời khuyên chính xác tổng quát cho bài làm, nêu ra những hạn chế và ưu điểm của bài làm,... bằng tiếng việt)
+        Nhận xét tổng thể: (đưa lời khuyên chính xác tổng quát cho bài làm, nêu ra những hạn chế và ưu điểm của bài làm,... bằng Tiếng Việt)
 
         (Error Start)
-        (Original error sentence - 1st sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng tiếng việt).\n
-        (Original error sentence - 2nd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng tiếng việt).\n
-        (Original error sentence - 3rd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng tiếng việt).\n 
+        (Original error sentence - 1st sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n
+        (Original error sentence - 2nd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n
+        (Original error sentence - 3rd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n 
         (Error End)
 
         Focus particularly on the 4 criteria in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().

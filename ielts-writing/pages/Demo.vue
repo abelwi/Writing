@@ -1,29 +1,29 @@
 <template>
-    <div class="mt-10 mr-10 flex justify-between">
+    <div class="mt-5 mx-10 flex justify-between">
         <NuxtLink
           to="/"
-          class="btn btn-outline ml-5 px-3 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+          class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
         >
           Quay lại
         </NuxtLink>
-        <button class="btn btn-base-200 px-3 py-1 sm:px-5 sm:py-2 rounded-lg drop-shadow-lg shadow hover:shadow-xl hover:bg-base-300 hover:border-base-200">
-            <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">Bắt đầu viết >></NuxtLink>
+        <button class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent">
+            <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">
+                Bắt đầu viết
+            </NuxtLink>
         </button>
     </div>
     <div class="relative">
+        <div class="flex justify-end mt-4">
+            <p class="mr-1 pr-5 sm:mr-4 sm:pr-60"><span class="">Word Count:</span>  285/250</p>
+        </div>
         <div class="flex justify-center items-center">
             <div class="box-content w-full text-center">
-                <p class="ml-1 pl-5 sm:ml-4 sm:pl-52 text-left font-semibold mt-4">Câu hỏi demo:</p>
-                <p class="w-5/6 sm:w-2/3 mt-4 px-5 py-3 mx-auto border border-primary-content rounded-lg text-left shadow-inner">
+                <p class="w-2/3 my-4 px-5 py-3 mx-auto border border-primary-content font-semibold italic rounded-lg text-left shadow-inner">
                     {{ demoQuestion }}
                 </p>
 
-                <div class="flex justify-between items-center mt-4">
-                    <p class="ml-1 pl-5 sm:ml-4 sm:pl-52 text-left font-semibold">Câu trả lời demo:</p>
-                    <p class="mr-1 pr-5 sm:mr-4 sm:pr-60">285/250</p>
-                </div>
                 <p
-                class="w-5/6 sm:w-2/3 mt-4 px-5 py-3 mx-auto text-left"
+                class="w-2/3 mt-4 px-5 py-3 mx-auto text-left"
                 >
                     {{ demoAnswer }}
                 </p>
