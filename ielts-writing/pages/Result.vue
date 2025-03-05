@@ -20,7 +20,7 @@
 
                 <NuxtLink to="/question" 
                 class="font-semibold text-lg btn btn-outline text-orange-500 px-5 py-2 rounded-lg drop-shadow-lg hover:bg-orange-300 hover:border-orange-300 hover:text-white">
-                    Bắt đầu viết >>
+                    Bắt đầu viết
                 </NuxtLink>
             </div>
         </div>

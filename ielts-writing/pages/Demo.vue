@@ -6,11 +6,10 @@
         >
           Quay lại
         </NuxtLink>
-        <button class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent">
-            <NuxtLink to="/question" class="font-semibold text-md sm:text-lg">
-                Bắt đầu viết
-            </NuxtLink>
-        </button>
+        
+        <NuxtLink to="/question" class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent">
+            Bắt đầu viết
+        </NuxtLink>
     </div>
     <div class="relative">
         <div class="flex justify-end mt-4">

@@ -1,54 +1,43 @@
 <template>
-    <NuxtLink
-        to="/"
-        class="btn btn-outline ml-10 px-3 mt-10 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
-    >
-        Quay lại
-    </NuxtLink>
-
-    <div class="mx-20 my-10">
-        <!-- <p class="mt-12 mb-3 text-left ml-7 sm:ml-20 font-semibold">Chọn câu hỏi:</p> -->
-
-        <div class="mt-4">
-            <ul class="grid grid-cols-2 gap-10">
-                <li 
-                    v-for="(item, index) in questions" 
-                    :key="index" 
-                    class="cursor-pointer px-4 py-4 rounded-lg border border-orange-400 shadow-lg drop-shadow-xl hover:bg-base-300"
-                    @click="selectQuestion(item.question)"
-                >
-                    {{ item.question }}
-                </li>
-            </ul>
+  <NuxtLink
+    to="/"
+    class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+  >
+    Quay lại
+  </NuxtLink>
+    <div>
+      <h1>IELTS Writing Task 2 Questions</h1>
+      <div v-if="questionsData && questionsData.length">
+        <div v-for="(category, index) in questionsData" :key="index">
+          <h2>{{ category.title }}</h2>
+          <ul>
+            <li v-for="(question, qIndex) in category.questions" :key="qIndex">
+              {{ question }}
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-</template>
-
-<script>
-import { state } from '~/store/DataStore';
-import { useRouter } from 'vue-router';
-
-import questions from '~/assets/data.json'
-export default {
-    setup() {
-        const router = useRouter();
-
-        const selectQuestion = (question) => {
-            state.question = question; // Save the selected question to state
-            localStorage.setItem('question', question); // Store in localStorage
-            router.push('/writing'); // Navigate to writing.vue
-        };
-
-        return {
-            state,
-            questions,
-            selectQuestion,
-        };
-    },
-};
-</script>
-
-<style scoped>
+  </template>
   
-</style>
-
+  <script>
+  import { ref, onMounted } from "vue";
+  
+  export default {
+    setup() {
+      const questionsData = ref([]); // ✅ Make it reactive
+  
+      onMounted(async () => {
+        try {
+            const response = await fetch("/question_data.json");
+            questionsData.value = await response.json();
+        } catch (error) {
+          console.error("Error loading question data:", error);
+        }
+      });
+  
+      return { questionsData };
+    }
+  };
+  </script>
+  
