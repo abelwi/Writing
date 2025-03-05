@@ -1,2 +1,0 @@
-# Writing
-animate__fadeInUp
