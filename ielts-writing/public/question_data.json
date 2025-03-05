@@ -1,12 +1,15 @@
 [
   {
     "title": "Crime & Society",
+    "icon": "fa-gavel",
     "questions": [
-      "Some people believe that in order to reduce crimes, prisoners should be given longer prison sentences while some people think there are other alternative ways. Discuss both views and give your opinion."
+      "Some people believe that in order to reduce crimes, prisoners should be given longer prison sentences while some people think there are other alternative ways. Discuss both views and give your opinion.",
+      "Some people believe that social inequality is an inevitable part of society, while others argue that governments should take active measures to reduce the gap between the rich and the poor. Discuss both views and give your opinion."
     ]
   },
   {
     "title": "Urbanization & Housing",
+    "icon": "fa-building",
     "questions": [
       "Some people believe that when designing a building, the most important thing to be considered is the function rather than the outward appearance. To what extent do you agree or disagree?",
       "Young people are leaving their homes from rural areas to study or work in the cities. What are the reasons? Do the advantages of this development outweigh its disadvantages?"
@@ -14,6 +17,7 @@
   },
   {
     "title": "Education",
+    "icon": "fa-book",
     "questions": [
       "Some people think that language teaching should take place in small classes, while others believe that the number of students in a language class does not matter. Discuss both these views and give your own opinion.",
       "Education of young people is highly prioritized in many countries. However, educating adults who cannot write or read is even more important, and governments should spend more money on this. To what extent do you agree or disagree?"
@@ -21,6 +25,7 @@
   },
   {
     "title": "Environment & Resources",
+    "icon": "fa-leaf",
     "questions": [
       "Many animal species in the world are becoming extinct nowadays. Some people say that countries and individuals should protect these animals from dying out, while others say we should concentrate more on problems of human beings. Discuss both views and give your opinion.",
       "Fresh water is a limited resource in some parts of the world. Today, increasing demand has made it a global problem. What are the causes of increasing demand, and what measures can governments and individuals take to solve this problem?"
@@ -28,6 +33,7 @@
   },
   {
     "title": "Technology & Innovation",
+    "icon": "fa-microchip",
     "questions": [
       "Today, there are many tasks at home or work that have been done by robots. Is this a positive or negative development?",
       "Online shopping is replacing shopping in stores. Do you think it is a positive or negative development?",
@@ -36,18 +42,24 @@
   },
   {
     "title": "Art & Culture",
+    "icon": "fa-palette",
     "questions": [
-      "Today, advanced science and technology have made great changes to people’s lives, but artists are still highly valued, such as musicians, painters, and writers. What can the arts tell us about life that science and technology cannot?"
+      "Today, advanced science and technology have made great changes to people’s lives, but artists are still highly valued, such as musicians, painters, and writers. What can the arts tell us about life that science and technology cannot?",
+      "Some people believe that governments should invest in promoting local arts and culture, while others think that spending on international cultural exchanges is more beneficial. Discuss both views and give your opinion."
+
     ]
   },
   {
     "title": "Sports & Media",
+    "icon": "fa-futbol",
     "questions": [
-      "Today, TV channels provide more men's sports shows than women's sports shows. Why? Should TV channels give equal time for women's sports and men's sports?"
+      "Today, TV channels provide more men's sports shows than women's sports shows. Why? Should TV channels give equal time for women's sports and men's sports?",
+      "Some people think that professional athletes should be role models for young people, while others believe that they should focus only on their performance. Discuss both views and give your opinion."
     ]
   },
   {
     "title": "Tourism & Globalization",
+    "icon": "fa-globe",
     "questions": [
       "Many countries believe that international tourism has harmful effects. Why do they think so? What can be done to change their views?",
       "The spread of multinational companies and the increase of globalization produces positive effects for everyone. To what extent do you agree or disagree?"
@@ -55,8 +67,10 @@
   },
   {
     "title": "News Consumption & Media",
+    "icon": "fa-tv",
     "questions": [
-      "More and more people no longer read newspapers or watch TV programs to get news. They get news about the world through the internet. Is this a positive or negative development?"
+      "More and more people no longer read newspapers or watch TV programs to get news. They get news about the world through the internet. Is this a positive or negative development?",
+      "In the digital age, many people rely on social media for news, while others believe that traditional news sources such as newspapers and television provide more reliable information. Discuss both views and give your opinion."
     ]
   }
 ]
