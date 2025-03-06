@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <NuxtLink
-    to="/writing"
+    to="/"
     class="btn btn-outline btn-orange-400 text-orange-400 ml-10 mt-5 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
     >
         Quay lại
