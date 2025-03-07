@@ -1,10 +1,10 @@
 import { state } from "./DataStore";
 
 export function useMyFunction() {
-    const checkAnswer = async (answer, question) => {
-        state.loading = true;
-        const prompt = `
-        You are an expert evaluator for IELTS Writing Task 2. The prompt provided is "${question}" and you are assessing the response "${answer}".
+    const getScoringPrompt = (answer, question) => {
+        const scroingPrompt = `
+        You are an expert evaluator for IELTS Writing Task 2. The prompt provided is "${question}" and you are assessing the response "${answer}". 
+
         Below are the criteria for the scope and accuracy of the 4 criteria in the IELTS Writing section:
         1.Task Achievement (TA) - Answering the Prompt:
         -Band 9.0: Fully addresses all parts with insightful ideas and highly relevant examples.
@@ -47,17 +47,6 @@ export function useMyFunction() {
         -Band 5.5: Basic structures with frequent errors that affect understanding.
         -Band 5.0: Very basic grammar with many serious errors making text hard to understand.
 
-        Consider whether the essay meets the word count requirement when assessing the score. Writing fewer than 250 words should have lower band scores.
-
-        Example of Errors: 
-        Error Start
-        "He has a high knowledge of history" -> "He has a deep knowledge of history": Cụm từ "Deep knowledge" chính xác hơn, thể hiện sự hiểu biết sâu sắc hơn.
-        "She don’t like coffee" -> "She doesn’t like coffee": Câu chủ ngữ "she" yêu cầu động từ "doesn't," chứ không phải "don't".
-        "We should do an effort to help" -> "We should make an effort to help": Câu đúng là "Make an effort," không phải "do an effort".
-        "Firstly, technology is helpful. Secondly, it is fast" -> "Firstly, technology is helpful because it saves time; moreover, it is fast and efficient": Việc thêm các từ liên kết và chi tiết giúp câu trở nên mạch lạc hơn.
-        Task prompt requires: "Discuss advantages and disadvantages.": Chỉ thảo luận về các lợi ích -> Cần thảo luận cả lợi ích và bất lợi.
-        Error End
-
         Provide scores and comments for the range and accuracy of the 4 criteria in the following format:
 
         Task Achievement (TA): (score rounded to the nearest 0.5, scored 1 band lower) - (nhận xét chi tiết cụ thể, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
@@ -67,33 +56,72 @@ export function useMyFunction() {
         Overall Band: (score average of all 4 criteria, rounded to the nearest 0.5) 
         Nhận xét tổng thể: (đưa lời khuyên chính xác tổng quát cho bài làm, nêu ra những hạn chế và ưu điểm của bài làm,... bằng Tiếng Việt)
 
+        Focus particularly on the 4 criteria in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().
+        `; 
+
+        return scroingPrompt;
+    };
+
+    const getCorrectionPromt = (answer, question) => {        
+        const correctionPrompt = `
+        You are an expert IELTS Writing evaluator. The prompt provided is "${question}" identify mistakes in the response "${answer}" and provide corrections.
+
+        For each mistake, provide:  
+        - The original incorrect sentence  
+        - The corrected version  
+        - A clear explanation of why it is incorrect and how to fix it.
+
+        Example of Errors: 
+        Error Start
+        "He has a high knowledge of history" -> "He has a deep knowledge of history": Cụm từ "Deep knowledge" chính xác hơn, thể hiện sự hiểu biết sâu sắc hơn.
+        "She don’t like coffee" -> "She doesn’t like coffee": Câu chủ ngữ "she" yêu cầu động từ "doesn't," chứ không phải "don't".
+        "We should do an effort to help" -> "We should make an effort to help": Câu đúng là "Make an effort," không phải "do an effort".
+        Error End
+
+        **Format the output as follows:**
         (Error Start)
         (Original error sentence - 1st sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n
         (Original error sentence - 2nd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n
         (Original error sentence - 3rd sentence) -> (Correct sentence): (Giải thích lỗi cụ thể, tại sao lại có lỗi sai này, đưa ra dẫn chứng và chữa lại cho chính xác bằng Tiếng Việt).\n 
         (Error End)
 
-        Focus particularly on the 4 criteria in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().
-        `; 
+        Focus particularly on provide corrections in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().
+        `;
 
+        return correctionPrompt;
+    };
+
+    const getScoringRes = async(scroingPrompt) => {
         try {
-            const res = await $fetch('/api/chatgpt', {
+            // First API call for scoring
+            const scoreResponse = await $fetch('/api/chatgpt', {
                 method: 'post',
-                body: JSON.stringify({ message: prompt }),
+                body: JSON.stringify({ message: scroingPrompt }),
             });
 
-            const resultObjects = parseResultText(res);
-        
-            state.apiResult = resultObjects; 
+            return scoreResponse
 
-            localStorage.setItem('apiResult', JSON.stringify(state.apiResult));
         } catch (error) {
             console.error('Error details:', error);
             alert('Đã xảy ra lỗi khi gọi API.');
-        } finally {
-            state.loading = false;
-        }                
-    }
+        }              
+    };
+
+    const getCorrectionRes = async(correctionPrompt) => {
+        try {   
+            // Second API call for error correction
+            const correctionResponse = await $fetch('/api/chatgpt', {
+                method: 'post',
+                body: JSON.stringify({ message: correctionPrompt }),
+            }); 
+
+            return correctionResponse
+
+        } catch (error) {
+            console.error('Error details:', error);
+            alert('Đã xảy ra lỗi khi gọi API.');
+        }  
+    };
 
     const parseResultText = (resultText) => {
         const resultObjects = {
@@ -103,66 +131,76 @@ export function useMyFunction() {
             grammaticalRangeAccuracy: {},
             overallBand: {},
             overallComment: '',
-            errors: [],
         };
 
         const lines = resultText.split('\n').filter((line) => line.trim() !== '');
 
         lines.forEach((line) => {
             if (line.includes('Task Achievement')) {
-                const rest = line.split(':')[1];
-                const [score, comment] = rest.split(' - ');
+                const [score, comment] = line.split(':')[1].split(' - ');
                 resultObjects.taskAchievement = { score: score.trim(), comment: comment.trim() };
             } else if (line.includes('Coherence and Cohesion')) {
-                const rest = line.split(':')[1];
-                const [score, comment] = rest.split(' - ');
+                const [score, comment] = line.split(':')[1].split(' - ');
                 resultObjects.coherenceCohesion = { score: score.trim(), comment: comment.trim() };
             } else if (line.includes('Lexical Resource')) {
-                const rest = line.split(':')[1];
-                const [score, comment] = rest.split(' - ');
+                const [score, comment] = line.split(':')[1].split(' - ');
                 resultObjects.lexicalResource = { score: score.trim(), comment: comment.trim() };
             } else if (line.includes('Grammatical Range and Accuracy')) {
-                const rest = line.split(':')[1];
-                const [score, comment] = rest.split(' - ');
+                const [score, comment] = line.split(':')[1].split(' - ');
                 resultObjects.grammaticalRangeAccuracy = { score: score.trim(), comment: comment.trim() };
             } else if (line.includes('Overall Band')) {
-                const rest = line.split(':')[1];
-                resultObjects.overallBand = { score: rest.trim() };
+                resultObjects.overallBand = { score: line.split(':')[1].trim() };
             } else if (line.includes('Nhận xét tổng thể')) {
                 resultObjects.overallComment = line.split(':')[1].trim();
-            } else if (line.includes('(Error Start)')) {
-                const errorStartIndex = lines.indexOf(line) + 1;
-                const errorEndIndex = lines.findIndex((line) => line.includes('(Error End)'));
-                const errorLines = lines.slice(errorStartIndex, errorEndIndex);
-                resultObjects.errors = errorLines
-                    .filter((entry) => entry.includes('->'))
-                    .map((entry) => {
-                        const parts = entry.split('->').map((part) => part.trim());
-                        if (parts.length === 2) {
-                            const errorPart = parts[0].replace(/^-/, '').replace(/"/g, '').trim();
-                            const correctionSplit = parts[1].split(':').map((part) => part.trim());
-                            const correctPart = correctionSplit[0].replace(/[()"]/g, '').trim();
-                            const explainPart = correctionSplit.length > 1
-                                ? correctionSplit[1].replace(/[()"]/g, '').trim()
-                                : '';
-
-                            return {
-                                error: errorPart,
-                                correct: correctPart,
-                                explain: explainPart,
-                            };
-                        }
-                        return null;
-                    })
-                    .filter(Boolean); // Remove any null entries
             }
         });
-            return resultObjects;
+
+        return resultObjects;
+    };
+
+    // Function to parse error correction response
+    const parseCorrectionText = (resultText) => {
+        const resultObjects = { errors: [] };
+        const lines = resultText.split('\n').filter((line) => line.trim() !== '');
+
+        const errorStartIndex = lines.findIndex((line) => line.includes('(Error Start)'));
+        const errorEndIndex = lines.findIndex((line) => line.includes('(Error End)'));
+
+        if (errorStartIndex !== -1 && errorEndIndex !== -1) {
+            const errorLines = lines.slice(errorStartIndex + 1, errorEndIndex);
+            resultObjects.errors = errorLines
+                .filter((entry) => entry.includes('->'))
+                .map((entry) => {
+                    const parts = entry.split('->').map((part) => part.trim());
+                    if (parts.length === 2) {
+                        const errorPart = parts[0].replace(/^-/, '').replace(/"/g, '').trim();
+                        const correctionSplit = parts[1].split(':').map((part) => part.trim());
+                        const correctPart = correctionSplit[0].replace(/[()"]/g, '').trim();
+                        const explainPart = correctionSplit.length > 1
+                            ? correctionSplit[1].replace(/[()"]/g, '').trim()
+                            : '';
+
+                        return {
+                            error: errorPart,
+                            correct: correctPart,
+                            explain: explainPart,
+                        };
+                    }
+                    return null;
+                })
+                .filter(Boolean);
         }
-        return {
-            checkAnswer,
-            parseResultText,
-        }
-    }
+        return resultObjects;
+    };
+
+    return {
+        parseResultText,
+        parseCorrectionText,
+        getScoringPrompt,
+        getCorrectionPromt,
+        getScoringRes,
+        getCorrectionRes,
+    };
+}
 
 

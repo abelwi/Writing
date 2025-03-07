@@ -52,12 +52,22 @@ import { useRouter } from 'vue-router';
 
 export default {
     setup() {
-        const { checkAnswer } = useMyFunction();
+        const { getScoringPrompt } = useMyFunction();
+        const { getCorrectionPromt } = useMyFunction();
+        const { getScoringRes } = useMyFunction();
+        const { getCorrectionRes } = useMyFunction();
+        const { parseResultText } = useMyFunction();
+        const { parseCorrectionText } = useMyFunction();
         const router = useRouter();
 
         return {
             state,
-            checkAnswer,
+            getScoringPrompt,
+            getCorrectionPromt,
+            getScoringRes,
+            getCorrectionRes,
+            parseResultText,
+            parseCorrectionText,
             router,
         }
     },
@@ -91,29 +101,25 @@ export default {
         }
     },
 
+    mounted() {
+        watch(() => state.loading, (newaction, oldaction) => {
+            if (state.loading) {
+                this.getScoringRes(this.getScoringPrompt(state.answer, state.question)).then(response => {
+                    console.log('get scoring data', this.parseResultText(response));
+                });
+
+                this.getCorrectionRes(this.getCorrectionPromt(state.answer, state.question)).then(response => {
+                    console.log('get correction data', this.parseCorrectionText(response));
+                });
+
+            }
+        })
+    },
     methods: {
         async handleClick() {
+            state.answer = this.demoAnswer;
+            state.question = this.demoQuestion;
             state.loading = true; // Show loading overlay
-
-            try {
-                // Store demo data in state
-                state.question = this.demoQuestion;
-                state.answer = this.demoAnswer;
-
-                // Call the API with demo data
-                await this.checkAnswer(state.answer, state.question);
-
-                // Navigate to Result.vue after API response
-                this.router.push({
-                    path: '/result',
-                    query: { source: 'demo' }
-                });
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra khi chấm điểm.');
-            } finally {
-                state.loading = false; // Hide loading overlay
-            }
         }
     }
 }

@@ -5,5 +5,4 @@ export const state = reactive({
     question: '',
     loading: false,
     apiResult: null, 
-
 })

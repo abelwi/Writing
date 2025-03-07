@@ -27,12 +27,10 @@
     
         <div class="p-5 flex space-x-10">    
             <div class="w-2/3 bg-base-100 py-5 px-10 rounded-xl">
-                <!-- Display question -->
                 <p class="mt-4 mb-10 italic font-semibold border border-base-content px-5 py-2 rounded-md">
                     {{ currentQuestion }}
                 </p>
 
-                <!-- Display answer -->
                 <p class="mt-4">
                     {{ currentAnswer }}
                 </p>
@@ -42,23 +40,23 @@
                 <div class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
                     <div class="border bg-green-600 p-2 rounded-lg text-white space-y-2">
                         <p class="text-xs px-3">Band Score</p>
-                        <p class="text-3xl font-semibold">{{ state.apiResult.overallBand.score }}</p>
+                        <p class="text-3xl font-semibold">{{ state.apiResult.overallBand?.score || 'N/A' }}</p>
                     </div>
                     <div class="border bg-base-300 p-2 rounded-lg space-y-5">
                         <p class="text-xs font-thin">Task Response</p>
-                        <p class="font-semibold">{{ state.apiResult.taskAchievement.score }}</p>
+                        <p class="font-semibold">{{ state.apiResult.taskAchievement?.score || 'N/A' }}</p>
                     </div>
                     <div class="border bg-base-300 p-2 rounded-lg space-y-1 px-2">
                         <p class="text-xs font-thin">Coherence & Cohesion</p>
-                        <p class="font-semibold">{{ state.apiResult.coherenceCohesion.score }}</p>
+                        <p class="font-semibold">{{ state.apiResult.coherenceCohesion?.score || 'N/A' }}</p>
                     </div>
                     <div class="border bg-base-300 p-2 rounded-lg space-y-5">
                         <p class="text-xs font-thin">Lexical Resource</p>
-                        <p class="font-semibold">{{ state.apiResult.lexicalResource.score }}</p>
+                        <p class="font-semibold">{{ state.apiResult.lexicalResource?.score || 'N/A' }}</p>
                     </div>
                     <div class="border bg-base-300 py-2 px-1 rounded-lg space-y-1">
                         <p class="text-xs font-thin">Grammatical Range & Accuracy</p>
-                        <p class="font-semibold">{{ state.apiResult.grammaticalRangeAccuracy.score }}</p>
+                        <p class="font-semibold">{{ state.apiResult.grammaticalRangeAccuracy?.score || 'N/A' }}</p>
                     </div>
                 </div>
         
@@ -103,7 +101,8 @@
                         style="max-height: calc(75vh - 120px);"
                     >
                         <p>{{ state.apiResult.overallComment }}</p>
-                        <div>
+
+                        <div v-if="state.apiResult.errors && state.apiResult.errors.length > 0">
                             <div class="flex pb-5 space-x-2 items-center">
                                 <img src="/images/attention.png" alt="attention" class="w-7 h-7">
                                 <p class="font-semibold">Những câu cần lưu ý:</p>
@@ -111,12 +110,12 @@
                             <ul class="space-y-10">
                                 <li v-for="(error, index) in state.apiResult.errors" :key="index" class="space-y-3">
                                     <p class="border p-2 rounded-lg border-orange-500">
-                                        <strong class="italic">Câu của bạn:</strong> {{ error.error }}
+                                        <strong class="italic">Câu của bạn:</strong> {{ error.error || 'Error not found' }}
                                     </p>
                                     <p class="border p-2 rounded-lg bg-orange-200">
-                                        <strong class="italic">Câu AI sửa cho bạn:</strong> {{ error.correct }}
+                                        <strong class="italic">Câu AI sửa cho bạn:</strong> {{ error.correct || 'Correction missing' }}
                                     </p>
-                                    <p><strong class="italic">==> Giải thích:</strong> {{ error.explain }}</p>
+                                    <p><strong class="italic">==> Giải thích:</strong> {{ error.explain || 'Explanation missing' }}</p>
                                 </li>
                             </ul>
                         </div>
@@ -157,7 +156,7 @@ export default {
     setup() {
         const router = useRouter();
         const route = useRoute();
-        const source = route.query.source || 'unknown';
+        
 
         const currentQuestion = source === 'demo' ? state.question : state.question;
         const currentAnswer = source === 'demo' ? state.answer : state.answer;
@@ -168,21 +167,21 @@ export default {
 
         // Redirect to landing page if there's no API result
         onMounted(() => {
-        if (!state.apiResult) {
-            router.push('/');
-        }
+            console.log("API Result:", state.apiResult);
+            if (!state.apiResult || (!state.apiResult.overallBand?.score && !state.apiResult.errors?.length)) {
+                router.push('/');
+            }
         });
-
 
         const showTab = (tabNumber) => {
             activeTab.value = tabNumber;
 
             // Reset scroll position
-            if (tabNumber === 1 && panel1.value) {
-                panel1.value.scrollTop = 0;
+            if (tabNumber === 1) {
+                panel1?.value?.scrollTo(0, 0);
             }
-            if (tabNumber === 2 && panel2.value) {
-                panel2.value.scrollTop = 0;
+            if (tabNumber === 2) {
+                panel2?.value?.scrollTo(0, 0);
             }
         };
 
@@ -195,6 +194,8 @@ export default {
             showTab,
             panel1,
             panel2,
+            scoreData,
+            correctData,
         };
     },
 };
