@@ -56,7 +56,7 @@ export default {
         const question = ref('');
         const router = useRouter();
         const route = useRoute();
-        const { checkAnswer } = useMyFunction();
+        const { fetchResults } = useMyFunction();
 
         onMounted(() => {
             state.answer = '';
@@ -86,7 +86,7 @@ export default {
             try {
                 state.question = question.value;
                 // Call the API
-                await checkAnswer(state.answer, state.question);
+                await fetchResults(state.answer, state.question);
                 // Navigate to Result.vue
                 router.push({
                     path: '/result',
@@ -106,11 +106,9 @@ export default {
             state,
             wordCount,
             validateAndCheckAnswer,
+            fetchResults,
         };
     },
 };
 </script>
 
-<style scoped>
-/* Add any specific styles for Writing.vue here */
-</style>
