@@ -1,8 +1,11 @@
 import { reactive } from "vue";
 
 export const state = reactive({
-    answer: '',
-    question: '',
+    answer: "",
+    question: "",
     loading: false,
-    apiResult: null, 
+    apiResult: {
+        scoringResult: null,
+        correctionResult: { errors: [] }
+    }, 
 })

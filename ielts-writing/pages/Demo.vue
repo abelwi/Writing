@@ -52,22 +52,12 @@ import { useRouter } from 'vue-router';
 
 export default {
     setup() {
-        const { getScoringPrompt } = useMyFunction();
-        const { getCorrectionPromt } = useMyFunction();
-        const { getScoringRes } = useMyFunction();
-        const { getCorrectionRes } = useMyFunction();
-        const { parseResultText } = useMyFunction();
-        const { parseCorrectionText } = useMyFunction();
+        const { fetchResults } = useMyFunction();
         const router = useRouter();
 
         return {
             state,
-            getScoringPrompt,
-            getCorrectionPromt,
-            getScoringRes,
-            getCorrectionRes,
-            parseResultText,
-            parseCorrectionText,
+            fetchResults,
             router,
         }
     },
@@ -101,25 +91,16 @@ export default {
         }
     },
 
-    mounted() {
-        watch(() => state.loading, (newaction, oldaction) => {
-            if (state.loading) {
-                this.getScoringRes(this.getScoringPrompt(state.answer, state.question)).then(response => {
-                    console.log('get scoring data', this.parseResultText(response));
-                });
-
-                this.getCorrectionRes(this.getCorrectionPromt(state.answer, state.question)).then(response => {
-                    console.log('get correction data', this.parseCorrectionText(response));
-                });
-
-            }
-        })
-    },
     methods: {
         async handleClick() {
             state.answer = this.demoAnswer;
             state.question = this.demoQuestion;
             state.loading = true; // Show loading overlay
+
+            await this.fetchResults(this.demoAnswer, this.demoQuestion);
+
+            state.loading = false;
+            this.router.push('/result');
         }
     }
 }

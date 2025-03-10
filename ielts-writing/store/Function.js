@@ -123,6 +123,23 @@ export function useMyFunction() {
         }  
     };
 
+    const fetchResults = async (answer, question) => {
+        const { getScoringPrompt, getCorrectionPromt, parseResultText, parseCorrectionText } = useMyFunction();
+
+        const scoringPrompt = getScoringPrompt(answer, question);
+        const correctionPrompt = getCorrectionPromt(answer, question);
+
+        try {
+            const scoringResponse = await getScoringRes(scoringPrompt);
+            const correctionResponse = await getCorrectionRes(correctionPrompt);
+
+            state.apiResult.scoringResult = parseResultText(scoringResponse);
+            state.apiResult.correctionResult = parseCorrectionText(correctionResponse);
+        } catch (error) {
+            console.error("Lỗi khi lấy dữ liệu:", error);
+        }
+    };
+
     const parseResultText = (resultText) => {
         const resultObjects = {
             taskAchievement: {},
@@ -200,6 +217,8 @@ export function useMyFunction() {
         getCorrectionPromt,
         getScoringRes,
         getCorrectionRes,
+        fetchResults, 
+        state, 
     };
 }
 
