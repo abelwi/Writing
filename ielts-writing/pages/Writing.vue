@@ -2,7 +2,7 @@
     <div class="bg-orange-100">
         <NuxtLink
             to="/question"
-            class="btn btn-outline ml-10 px-3 mt-5 sm:px-5 py-1 sm:py-2 text-md sm:text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+            class="btn btn-outline btn-orange-400 text-orange-400 ml-10 px-5 mt-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
         >
             Quay lại
         </NuxtLink>
@@ -16,7 +16,7 @@
                         {{ question }}
                     </p>
 
-                    <div class="flex justify-end items-end mx-6 sm:mx-44 mt-5 mb-2.5">
+                    <div class="flex justify-end items-end mx-6 sm:mx-44 mt-5 mb-1">
                         <p>{{ wordCount }}/250</p>
                     </div>
                     <textarea 
