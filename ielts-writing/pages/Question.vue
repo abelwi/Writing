@@ -9,7 +9,7 @@
 
     <div class="my-10 mx-20 space-y-10">
       <div v-for="(category, index) in questions" :key="index" class="">
-        <h2 class="text-xl font-bold flex items-center mb-4 ml-5 text-primary">
+        <h2 class="text-xl font-bold flex items-center mb-4 ml-5 text-orange-600">
           <i :class="`fas ${category.icon} mr-4`"></i>
           {{ category.title }}
         </h2>
@@ -20,7 +20,7 @@
             :key="qIndex"
             :to="{ path: '/writing', query: { question: q } }"
             @click="localStorage.setItem('question', q)"
-            class="block mb-2 border-2 drop-shadow-lg p-5 rounded-lg cursor-pointer hover:bg-gray-100"
+            class="block mb-2 border-2 drop-shadow-lg p-5 rounded-lg cursor-pointer hover:bg-orange-200"
           >
               {{ q }}
           </NuxtLink>

@@ -9,7 +9,7 @@
           <p class="text-sm sm:text-md font-light text-center">Một trang web giúp bạn cải thiện trình độ Writing task 2 của mình!</p>
           <div class="mb-4 sm:mb-7 mt-10 sm:mt-16 flex justify-center">
             <NuxtLink
-            to="/demo"
+            to="/question"
             class="btn btn-wide btn-accent px-8 py-3 sm:px-14 sm:py-4 rounded-lg drop-shadow-xl shadow hover:shadow-xl"
           >
               DÙNG THỬ
