@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="mt-5">
-          <p class="text-left mx-14 font-thin">My name is Lam, and I am the creator of this website. This is my personal project, and I have spent nearly a year developing it for you. 
+          <p class="text-left mx-14 font-thin">My name is Lam, and I am the creator of this website. This is my personal project, and 
             I hope you have a great experience using my website! Thanks a lot! >.<
           </p>
 
