@@ -20,25 +20,25 @@
             
             <div class="w-1/3">
                 <div v-if="state.apiResult.scoringResult" class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
-                    <div class="border bg-green-600 p-2 rounded-lg text-white space-y-2">
+                    <div class="relative border bg-green-600 p-2 rounded-lg text-white h-24 w-20">
                         <p class="text-xs px-3">Band Score</p>
-                        <p class="text-3xl font-semibold">{{ state.apiResult.scoringResult.overallBand.score }}</p>
+                        <p class="text-3xl font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.overallBand.score }}</p>
                     </div>
-                    <div class="border bg-base-300 p-2 rounded-lg space-y-5">
+                    <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Task Response</p>
-                        <p class="font-semibold">{{ state.apiResult.scoringResult.taskAchievement.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.taskAchievement.score }}</p>
                     </div>
-                    <div class="border bg-base-300 p-2 rounded-lg space-y-4 lg:space-y-1 px-2">
+                    <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Coherence & Cohesion</p>
-                        <p class="font-semibold">{{ state.apiResult.scoringResult.coherenceCohesion.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.coherenceCohesion.score }}</p>
                     </div>
-                    <div class="border bg-base-300 p-2 rounded-lg space-y-5">
+                    <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Lexical Resource</p>
-                        <p class="font-semibold">{{ state.apiResult.scoringResult.lexicalResource.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.lexicalResource.score }}</p>
                     </div>
-                    <div class="border bg-base-300 py-2 px-1 rounded-lg space-y-1">
+                    <div class="relative border bg-base-300 py-2 px-1 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Grammatical Range & Accuracy</p>
-                        <p class="font-semibold">{{ state.apiResult.scoringResult.grammaticalRangeAccuracy.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.grammaticalRangeAccuracy.score }}</p>
                     </div>
                 </div>
         
