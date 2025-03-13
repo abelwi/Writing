@@ -18,18 +18,23 @@
         </div>
       </div>
       
-      <div class="mt-10 sm:mt-10 bg-base-300 h-52 p-4 shadow-inner">
-        <p class="font-semibold text-left ml-2 sm:ml-8 pt-2">P/s:</p>
-        <p class="text-left mx-2 sm:mx-14 font-thin">Mình là Lam - người tạo chiếc web nhỏ này cho cậu, hi vọng nó sẽ giúp cậu phần nào.
-          Sẽ có khá nhiều thiếu sót, hãy cho mình biết để mình cải thiện nha! ^^
-        </p>
+      <div class="flex mt-10 bg-base-300 h-52 p-10 shadow-inner">
+        <div class="avatar">
+          <div class="w-32 h-32 rounded-full shadow-inner drop-shadow-xl">
+            <img src="../public/images/personal_avatar.jpg" />
+          </div>
+        </div>
+        <div class="mt-5">
+          <p class="text-left mx-14 font-thin">My name is Lam, and I am the creator of this website. This is my personal project, and I have spent nearly a year developing it for you. 
+            I hope you have a great experience using my website! Thanks a lot! >.<
+          </p>
 
-        <p class="text-right mt-5 mr-4 sm:mr-3">Liên hệ mình qua 
-          <a href="https://www.facebook.com/huyenhuong.nguyen.77" target="_blank" class="link link-accent">
-            Facebook
-          </a>
-          này nhaaaa!!
-        </p>
+          <p class="text-right mt-2 mr-3">Contact me via this
+            <a href="https://www.facebook.com/huyenhuong.nguyen.77" target="_blank" class="link link-accent">
+              Facebook
+            </a> ^^
+          </p>
+        </div>
       </div>
     </div>
 </template>

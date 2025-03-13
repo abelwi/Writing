@@ -1,29 +1,11 @@
 <template>
-    <div class=" bg-orange-100 pt-5">
-        <div v-if="source === 'writing'">
-            <NuxtLink
-            to="/writing"
-            class="btn btn-outline btn-orange-400 text-orange-400 ml-10 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
-            >
-                Quay lại
-            </NuxtLink>
-        </div>
-
-        <div v-if="source === 'demo'">
-            <div class="mr-10 flex justify-between">
-                <NuxtLink
-                to="/demo"
-                class="btn btn-outline text-orange-500 ml-5 px-5 py-2 text-lg rounded-lg hover:bg-orange-300 hover:text-white hover:border-orange-300"
-                >
-                Quay lại
-                </NuxtLink>
-
-                <NuxtLink to="/question" 
-                class="font-semibold text-lg btn btn-outline text-orange-500 px-5 py-2 rounded-lg drop-shadow-lg hover:bg-orange-300 hover:border-orange-300 hover:text-white">
-                    Bắt đầu viết
-                </NuxtLink>
-            </div>
-        </div>
+    <div class="h-screen bg-orange-100 pt-5">
+        <NuxtLink
+        to="/question"
+        class="btn btn-outline btn-orange-400 text-orange-400 ml-10 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+        >
+            Quay lại
+        </NuxtLink>
     
         <div class="p-5 flex space-x-10">    
             <div class="w-2/3 bg-base-100 py-5 px-10 rounded-xl">
@@ -172,7 +154,6 @@ export default {
 
         // Redirect to landing page if there's no API result
         onMounted(() => {
-            console.log("API Result:", state.apiResult);
             if (!state.apiResult.scoringResult && (!state.apiResult.correctionResult || !state.apiResult.correctionResult.errors.length)) {
                 router.push('/');
             }

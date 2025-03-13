@@ -1,29 +1,42 @@
 <template>
-  <div class="">
+  <div class="mt-5 mb-20">
     <NuxtLink
-    to="/"
-    class="btn btn-outline btn-orange-400 text-orange-400 ml-10 mt-5 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+      to="/"
+      class="btn btn-outline btn-orange-400 text-orange-400 ml-10 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
     >
-        Quay lại
+      Quay lại
     </NuxtLink>
 
     <div class="my-10 mx-20 space-y-10">
-      <div v-for="(category, index) in questions" :key="index" class="">
+      <div v-for="(category, catIndex) in questions" :key="catIndex">
         <h2 class="text-xl font-bold flex items-center mb-4 ml-5 text-orange-600">
           <i :class="`fas ${category.icon} mr-4`"></i>
           {{ category.title }}
         </h2>
 
         <ul class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-7">
-          <NuxtLink
-            v-for="(q, qIndex) in category.questions"
+          <li 
+            v-for="(q, qIndex) in category.questions" 
             :key="qIndex"
-            :to="{ path: '/writing', query: { question: q } }"
-            @click="localStorage.setItem('question', q)"
-            class="block mb-2 border-2 drop-shadow-lg p-5 rounded-lg cursor-pointer hover:bg-orange-200"
+            class="relative block mb-2 border-2 drop-shadow-lg px-4 py-6 rounded-lg group"
           >
-              {{ q }}
-          </NuxtLink>
+            {{ q.text }}
+            <div class="absolute -bottom-4 -right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <NuxtLink
+                :to="{ path: '/writing', query: { question: q.text, mode: 'write' } }"
+                class="btn btn-sm btn-primary px-4 py-2 mr-2 rounded-lg shadow-lg"
+              >
+                Tự viết bài
+              </NuxtLink>
+              <NuxtLink
+                v-if="q.globalIndex < 4"
+                :to="{ path: '/writing', query: { question: q.text, mode: 'sample', sampleAnswer: q.sampleAnswer || '' } }"
+                class="btn btn-sm btn-secondary px-4 py-2 rounded-lg shadow-lg"
+              >
+                Chấm điểm bài mẫu
+              </NuxtLink>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -38,8 +51,20 @@ const questions = ref([]);
 onMounted(async () => {
   try {
     const response = await fetch('/question_data.json'); 
-    questions.value = await response.json();
-    console.log("Loaded Data:", questions.value); 
+    const data = await response.json();
+
+    // Flatten the questions and convert each string to an object
+    let globalCount = 0;
+    data.forEach(category => {
+      category.questions = category.questions.map(q => {
+        if (typeof q === 'string') {
+          return { text: q, globalIndex: globalCount++ }; // Convert string to object
+        }
+        return { ...q, globalIndex: globalCount++ }; // Keep object format if already correct
+      });
+    });
+
+    questions.value = data;
   } catch (error) {
     console.error("Failed to load questions:", error);
   }
