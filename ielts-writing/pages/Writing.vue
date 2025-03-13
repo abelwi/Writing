@@ -52,7 +52,7 @@
         <!-- Loading Overlay -->
         <div v-if="state.loading" class="fixed inset-0 bg-base-300 flex justify-center items-center">
             <div class="text-lg font-semibold">
-                Đang chấm điểm, vui lòng đợi...
+                Đợi chút nha, đang chấm rùi nè...
             </div>
         </div>
     </div>

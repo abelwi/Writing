@@ -18,20 +18,20 @@
           <li 
             v-for="(q, qIndex) in category.questions" 
             :key="qIndex"
-            class="relative block mb-2 border-2 drop-shadow-lg px-4 py-6 rounded-lg group"
+            class="relative block mb-2 border-2 drop-shadow-lg px-4 py-10 rounded-lg group"
           >
             {{ q.text }}
             <div class="absolute -bottom-4 -right-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <NuxtLink
                 :to="{ path: '/writing', query: { question: q.text, mode: 'write' } }"
-                class="btn btn-sm btn-primary px-4 py-2 mr-2 rounded-lg shadow-lg"
+                class="btn btn-md btn-primary mr-2 rounded-lg shadow-lg"
               >
                 Tự viết bài
               </NuxtLink>
               <NuxtLink
                 v-if="q.globalIndex < 4"
                 :to="{ path: '/writing', query: { question: q.text, mode: 'sample', sampleAnswer: q.sampleAnswer || '' } }"
-                class="btn btn-sm btn-secondary px-4 py-2 rounded-lg shadow-lg"
+                class="btn btn-md btn-secondary rounded-lg shadow-lg"
               >
                 Chấm điểm bài mẫu
               </NuxtLink>

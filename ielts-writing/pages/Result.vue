@@ -28,7 +28,7 @@
                         <p class="text-xs font-thin">Task Response</p>
                         <p class="font-semibold">{{ state.apiResult.scoringResult.taskAchievement.score }}</p>
                     </div>
-                    <div class="border bg-base-300 p-2 rounded-lg space-y-1 px-2">
+                    <div class="border bg-base-300 p-2 rounded-lg space-y-4 lg:space-y-1 px-2">
                         <p class="text-xs font-thin">Coherence & Cohesion</p>
                         <p class="font-semibold">{{ state.apiResult.scoringResult.coherenceCohesion.score }}</p>
                     </div>
