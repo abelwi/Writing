@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full mt-10">
+    <div class="h-screen mt-10">
       <div class="flex justify-center items-center flex-col">
         <div>
           <div class="flex justify-center">
