@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen mt-10">
+    <div class="h-full mt-10">
       <div class="flex justify-center items-center flex-col">
         <div>
           <div class="flex justify-center">
@@ -18,7 +18,7 @@
         </div>
       </div>
       
-      <div class="flex mt-10 bg-base-300 h-52 p-10 shadow-inner">
+      <div class="flex mt-10 bg-base-300 h-full p-10 shadow-inner">
         <div class="avatar">
           <div class="w-32 h-32 rounded-full shadow-inner drop-shadow-xl">
             <img src="../public/images/personal_avatar.jpg" />
