@@ -16,7 +16,7 @@
 
             <div v-if="mode === 'write'" class="w-5/6 text-center">
                 <div class="flex justify-end items-end mx-32 mt-5 mb-1">
-                    <p>{{ wordCount }}/250</p>
+                    <p>{{ wordCount }}/300</p>
                 </div>
                 <textarea 
                     class="textarea w-4/5 text-lg mt-2 px-3 pb-96 pt-4 rounded-xl drop-shadow-xl shadow-inner border-2 border-base-300 focus:outline-none"
@@ -35,7 +35,7 @@
 
             <div v-if="mode === 'sample'" class="w-5/6 text-center mt-6">
                 <div class="flex justify-end items-end mx-32 mb-1">
-                    <p>{{ sampleWordCount }}/250</p>
+                    <p>{{ sampleWordCount }}/300</p>
                 </div>
                 <p class="w-4/5 px-5 py-3 mx-auto border border-gray-400 rounded-lg bg-white text-left">
                     {{ sampleAnswer }}

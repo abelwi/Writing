@@ -29,7 +29,6 @@
                 Tự viết bài
               </NuxtLink>
               <NuxtLink
-                v-if="q.globalIndex < 4"
                 :to="{ path: '/writing', query: { question: q.text, mode: 'sample', sampleAnswer: q.sampleAnswer || '' } }"
                 class="btn btn-md hover:btn-secondary rounded-lg hover:shadow-lg"
               >
