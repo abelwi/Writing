@@ -7,41 +7,45 @@
             Quay lại
         </NuxtLink>
 
-        <div class="relative flex flex-col items-center">
+        <div class="flex flex-col items-center">
             <p 
                 class="w-2/3 mt-0 px-5 py-3 mx-auto border border-gray-400 rounded-lg bg-white text-left italic font-semibold"
             >
                 {{ question }}
             </p>
 
-            <div v-if="mode === 'write'" class="w-5/6 text-center">
+            <div v-if="state.mode === 'write'" class="w-5/6 text-center">
                 <div class="flex justify-end items-end mx-32 mt-5 mb-1">
                     <p>{{ wordCount }}/300</p>
                 </div>
                 <textarea 
-                    class="textarea w-4/5 text-lg mt-2 px-3 pb-96 pt-4 rounded-xl drop-shadow-xl shadow-inner border-2 border-base-300 focus:outline-none"
+                    class="textarea w-4/5 text-base mt-2 px-3 pb-96 pt-4 rounded-xl drop-shadow-xl shadow-inner border-2 border-base-300 focus:outline-none"
                     required
                     placeholder="Nhập câu trả lời của bạn..."
                     v-model="state.answer"
                 ></textarea>
 
                 <button 
-                    class="btn btn-wide btn-md btn-accent px-12 sm:w-2/5 sm:px-20 py-2 sm:py-3 mt-4 mb-14 font-bold rounded-xl drop-shadow-xl shadow-xl"
+                    class="btn btn-wide btn-md btn-accent px-12 sm:w-2/5 sm:px-20 py-2 sm:py-3 mt-4 font-bold rounded-xl drop-shadow-xl shadow-xl"
                     @click="validateAndCheckAnswer"
                 >
                     Chấm điểm
                 </button>
             </div>
 
-            <div v-if="mode === 'sample'" class="w-5/6 text-center mt-6">
+            <div v-if="state.mode === 'sample'" class="w-5/6 text-center mt-6">
                 <div class="flex justify-end items-end mx-32 mb-1">
-                    <p>{{ sampleWordCount }}/300</p>
+                    <p>{{ wordCount }}/300</p>
                 </div>
-                <p class="w-4/5 px-5 py-3 mx-auto border border-gray-400 rounded-lg bg-white text-left">
-                    {{ sampleAnswer }}
-                </p>
+                <div class="flex justify-center">
+                    <textarea 
+                        class="textarea text-base w-4/5 h-[480px] px-5 py-5 rounded-xl drop-shadow-xl shadow-inner border-2 border-base-300 focus:outline-none leading-relaxed"
+                        v-model="state.answer"
+                        style="display: flex; align-items: center; text-align: justify;"
+                    ></textarea>
+                </div>
                 <button 
-                    class="btn btn-accent w-2/5 px-20 py-3 mt-10 mb-14 font-bold rounded-xl drop-shadow-xl shadow-xl"
+                    class="btn btn-accent w-2/5 px-20 py-3 mt-5 font-bold rounded-xl drop-shadow-xl shadow-xl"
                     @click="scoreSampleAnswer"
                 >
                     Chấm điểm bài mẫu
@@ -67,25 +71,29 @@ import { useRouter, useRoute } from 'vue-router';
 export default {
     setup() {
         const question = ref('');
-        const sampleAnswer = ref('');
-        const mode = ref('');
         const router = useRouter();
         const route = useRoute();
         const { fetchResults } = useMyFunction();
 
         onMounted(() => {
             state.answer = '';
-            mode.value = route.query.mode || 'write';
-            question.value = route.query.question || 'Không có câu hỏi nào được chọn.';
-            sampleAnswer.value = route.query.sampleAnswer || '';
+            state.mode = route.query.mode || 'write';
+
+            if (route.query.question) {
+                question.value = route.query.question;
+                localStorage.setItem('question', route.query.question);
+            } else {
+                const storedQuestion = localStorage.getItem('question');
+                question.value = storedQuestion || 'Không có câu hỏi nào được chọn.';
+            }
+
+            if (route.query.sampleAnswer) {
+                state.answer = route.query.sampleAnswer;
+            }
         });
 
         const wordCount = computed(() => {
             return (state.answer || '').trim().split(/\s+/).filter(word => word.length > 0).length;
-        });
-
-        const sampleWordCount = computed(() => {
-            return (sampleAnswer.value || '').trim().split(/\s+/).filter(word => word.length > 0).length;
         });
 
         const validateAndCheckAnswer = async () => {
@@ -97,7 +105,7 @@ export default {
             try {
                 state.question = question.value;
                 await fetchResults(state.answer, state.question);
-                router.push({ path: '/result', query: 'writing'  });
+                router.push({ path: '/result', query: { source: 'writing' }  });
             } catch (error) {
                 console.error('Error:', error);
                 alert('Đã xảy ra lỗi khi chấm điểm.');
@@ -110,7 +118,6 @@ export default {
             state.loading = true;
             try {
                 state.question = question.value;
-                state.answer = sampleAnswer.value;
                 await fetchResults(state.answer, state.question);
                 router.push({ path: '/result', query: { source: 'sample' } });
             } catch (error) {
@@ -123,11 +130,8 @@ export default {
 
         return {
             question,
-            sampleAnswer,
-            mode,
             state,
             wordCount,
-            sampleWordCount,
             validateAndCheckAnswer,
             scoreSampleAnswer,
             fetchResults,

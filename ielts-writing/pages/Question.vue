@@ -29,7 +29,7 @@
                 Tự viết bài
               </NuxtLink>
               <NuxtLink
-                :to="{ path: '/writing', query: { question: q.text, mode: 'sample', sampleAnswer: q.sampleAnswer || '' } }"
+                :to="{ path: '/writing', query: { question: q.text, mode: 'sample', sampleAnswer: q.sampleAnswer } }"
                 class="btn btn-md hover:btn-secondary rounded-lg hover:shadow-lg"
               >
                 Chấm điểm bài mẫu
@@ -49,21 +49,9 @@ const questions = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await fetch('/question_data.json'); 
-    const data = await response.json();
-
-    // Flatten the questions and convert each string to an object
-    let globalCount = 0;
-    data.forEach(category => {
-      category.questions = category.questions.map(q => {
-        if (typeof q === 'string') {
-          return { text: q, globalIndex: globalCount++ }; // Convert string to object
-        }
-        return { ...q, globalIndex: globalCount++ }; // Keep object format if already correct
-      });
-    });
-
-    questions.value = data;
+    const response = await fetch('/question_data.json');
+    questions.value = await response.json();
+    console.log("Loaded Data:", questions.value);
   } catch (error) {
     console.error("Failed to load questions:", error);
   }
