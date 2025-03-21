@@ -12,7 +12,7 @@
             to="/question"
             class="btn btn-wide btn-accent px-8 py-3 sm:px-14 sm:py-4 rounded-lg drop-shadow-xl shadow hover:shadow-xl"
           >
-              DÙNG THỬ
+              BẮT ĐẦU
           </NuxtLink>
           </div>
         </div>

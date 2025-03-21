@@ -1,12 +1,31 @@
 <template>
   <div class="mt-5 mb-20">
-    <NuxtLink
-      to="/"
-      class="btn btn-outline btn-orange-400 text-orange-400 ml-10 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
-    >
-      Quay lại
-    </NuxtLink>
+    <div class="flex justify-between mx-10">
+      <NuxtLink
+        to="/"
+        class="btn btn-outline btn-orange-400 text-orange-400 px-5 text-lg rounded-lg shadow hover:shadow-xl hover:bg-accent hover:border-accent"
+      >
+        Quay lại
+      </NuxtLink>
 
+      <div class="space-x-4">
+        <input 
+          v-model="customQuestion"
+          type="question"   
+          placeholder="Nhập câu hỏi khác . . ." 
+          class="py-2 px-5 w-96 input input-bordered"/>
+        <button 
+          class="btn"
+          :class="customQuestion.trim()
+            ? 'bg-orange-300 hover:bg-orange-400'
+            : 'bg-orange-300 cursor-not-allowed hover:bg-orange-300'"
+          @click="goToWriting"
+        >
+          Làm bài
+        </button>
+      </div>
+
+    </div>
     <div class="my-10 mx-20 space-y-10">
       <div v-for="(category, catIndex) in questions" :key="catIndex">
         <h2 class="text-xl font-bold flex items-center mb-4 ml-5 text-orange-600">
@@ -45,15 +64,40 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const router = useRouter();
 const questions = ref([]);
+const customQuestion = ref('');
 
 onMounted(async () => {
   try {
     const response = await fetch('/question_data.json');
-    questions.value = await response.json();
-    console.log("Loaded Data:", questions.value);
+    const jsonData = await response.json();
+
+    const storedCustomQuestion = localStorage.getItem('customQuestion');
+    if (storedCustomQuestion) {
+      jsonData.push({
+        title: 'Câu hỏi của bạn',
+        icon: 'fa-user',
+        questions: [{ text: storedCustomQuestion, sampleAnswer: '' }],
+      });
+    }
+
+    questions.value = jsonData;
   } catch (error) {
     console.error("Failed to load questions:", error);
   }
 });
+
+function goToWriting() {
+  if (!customQuestion.value.trim()) return;
+  localStorage.setItem('customQuestion', customQuestion.value.trim());
+
+  router.push({
+    path: '/writing',
+    query: {
+      question: customQuestion.value.trim(),
+      mode: 'write',
+    },
+  });
+}
 </script>

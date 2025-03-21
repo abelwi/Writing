@@ -56,7 +56,7 @@
         <!-- Loading Overlay -->
         <div v-if="state.loading" class="fixed inset-0 bg-base-300 flex justify-center items-center">
             <div class="text-lg font-semibold">
-                Đợi chút nha, đang chấm rùi nè...
+                Đợi chút nha, đang chấm rùi nè<span class="loading loading-dots loading-md ml-3 align-bottom"></span>
             </div>
         </div>
     </div>
