@@ -18,14 +18,14 @@
         </div>
       </div>
       
-      <div class="flex mt-10 bg-base-300 p-10 shadow-inner">
+      <div class="flex mt-10 bg-base-300 p-5 sm:p-10 shadow-inner space-x-2 sm:space-x-0">
         <div class="avatar">
           <div class="w-32 h-32 rounded-full shadow-inner drop-shadow-xl">
             <img src="../public/images/personal_avatar.jpg" />
           </div>
         </div>
-        <div class="mt-5">
-          <p class="text-left mx-14 font-thin">My name is Lam, and I am the creator of this website. This is my personal project, and 
+        <div class="mt-2 sm:mt-5">
+          <p class="text-left mx-5 sm:mx-14 font-thin">My name is Lam, and I am the creator of this website. This is my personal project, and 
             I hope you have a great experience using my website! Thanks a lot! >.<
           </p>
 
@@ -37,9 +37,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Mobile warning -->
+    <div v-if="isMobile" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-50 flex flex-col justify-center items-center text-white p-10 text-center">
+      <h2 class="text-xl font-bold mb-4">Upss, bạn ơi hãy chuyển sang màn hình máy tính nha ^^</h2>
+      <p>Trang web này được thiết kế tốt nhất cho màn hình lớn!!!</p>
+    </div>
+
 </template>
 
 
-<script>
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
+const isMobile = ref(false);
+
+function checkScreenSize() {
+  isMobile.value = window.innerWidth < 768; // Mobile if screen width < 768px
+}
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkScreenSize);
+});
 </script>
