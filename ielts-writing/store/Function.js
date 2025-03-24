@@ -91,6 +91,23 @@ export function useMyFunction() {
         return correctionPrompt;
     };
 
+    const testCallApi = async(prompt) => {
+        try {
+            // First API call for scoring
+            const scoreResponse = await $fetch('/api/testapi', {
+                method: 'post',
+                body: JSON.stringify({ message: prompt }),
+            });
+
+            console.log(scoreResponse)
+            return scoreResponse
+
+        } catch (error) {
+            console.error('Error details:', error);
+            alert('Đã xảy ra lỗi khi gọi API.');
+        }          
+    };
+
     const getScoringRes = async(scroingPrompt) => {
         try {
             // First API call for scoring
@@ -218,6 +235,7 @@ export function useMyFunction() {
         getScoringRes,
         getCorrectionRes,
         fetchResults, 
+        testCallApi,
         state, 
     };
 }
