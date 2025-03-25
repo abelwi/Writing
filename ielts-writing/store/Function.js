@@ -108,20 +108,31 @@ export function useMyFunction() {
         }          
     };
 
-    const getScoringRes = async(scroingPrompt) => {
+    const getScoringRes = async (scroingPrompt) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+        }, 30000); // 30 seconds
+    
         try {
-            // First API call for scoring
             const scoreResponse = await $fetch('/api/chatgpt', {
                 method: 'post',
                 body: JSON.stringify({ message: scroingPrompt }),
+                signal: controller.signal, // 👈 Kết nối với AbortController
             });
-
-            return scoreResponse
-
+    
+            clearTimeout(timeoutId); // ✅ Clear timeout nếu gọi API thành công
+            return scoreResponse;
+    
         } catch (error) {
-            console.error('Error details:', error);
-            alert('Đã xảy ra lỗi khi gọi API.');
-        }              
+            if (error.name === 'AbortError') {
+                console.error('⏰ Request timed out');
+                alert('Hết thời gian chờ phản hồi từ API (30 giây).');
+            } else {
+                console.error('🔥 Error details:', error);
+                alert('Đã xảy ra lỗi khi gọi API.');
+            }
+        }
     };
 
     const getCorrectionRes = async(correctionPrompt) => {
