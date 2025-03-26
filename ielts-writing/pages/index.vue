@@ -16,8 +16,6 @@
           </NuxtLink>
           </div>
         </div>
-
-        <button class="btn" @click="testCallApi('Helo are you there?')"> Test API </button>
       </div>
       
       <div class="flex mt-10 bg-base-300 p-5 sm:p-10 shadow-inner space-x-2 sm:space-x-0">
@@ -51,9 +49,6 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useMyFunction } from '~/store/Function';
- 
-const { testCallApi } = useMyFunction();
 
 const isMobile = ref(false);
 
