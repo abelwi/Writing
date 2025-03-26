@@ -72,16 +72,7 @@ onMounted(async () => {
   try {
     const response = await fetch('/question_data.json');
     const jsonData = await response.json();
-
-    const storedCustomQuestion = localStorage.getItem('customQuestion');
-    if (storedCustomQuestion) {
-      jsonData.push({
-        title: 'Câu hỏi của bạn',
-        icon: 'fa-user',
-        questions: [{ text: storedCustomQuestion, sampleAnswer: '' }],
-      });
-    }
-
+    
     questions.value = jsonData;
   } catch (error) {
     console.error("Failed to load questions:", error);

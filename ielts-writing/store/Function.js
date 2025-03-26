@@ -2,17 +2,28 @@ import { state } from "./DataStore";
 
 export function useMyFunction() {
     const fetchResults = async (answer, question) => {
-        try {
-            const response = await $fetch('/api/chatgpt', {
-                method: 'post',
-                body: { answer, question },
-            });
+        state.apiResult = {
+            scoringResult: {},
+            correctionResult: {},
+        };
 
-            state.apiResult.scoringResult = parseResultText(response.scoringResult);
-            state.apiResult.correctionResult = parseCorrectionText(response.correctionResult);
+        try {
+            const [scoringResponse, correctionResponse] = await Promise.all([
+                $fetch('/api/score', {
+                    method: 'post',
+                    body: { answer, question },
+                }),
+                $fetch('/api/correct', {
+                    method: 'post',
+                    body: { answer, question },
+                })
+            ]);
+
+            state.apiResult.scoringResult = parseResultText(scoringResponse);
+            state.apiResult.correctionResult = parseCorrectionText(correctionResponse);
         } catch (error) {
-            console.error("Lỗi khi lấy dữ liệu:", error);
-            alert('Đã xảy ra lỗi khi gọi API.');
+            console.error("🚨 Lỗi khi gọi API:", error);
+            alert('Lỗi kết nối đến máy chủ. Hãy thử lại sau vài phút nhé 🥲');
         }
     };
 
