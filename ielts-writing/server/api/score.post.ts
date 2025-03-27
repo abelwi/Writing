@@ -14,43 +14,27 @@ export default defineEventHandler(async (event) => {
       Below are the criteria for the scope and accuracy of the 4 criteria in the IELTS Writing section:
       1.Task Achievement (TA) - Answering the Prompt:
       -Band 9.0: Fully addresses all parts with insightful ideas and highly relevant examples.
-      -Band 8.5: Effectively addresses all parts; ideas are clear and well-supported with minor gaps.
       -Band 8.0: Addresses all parts with clear ideas and good support; minor details may be missing.
-      -Band 7.5: Mostly addresses the task well with logical ideas, but some may lack detail or clarity.
       -Band 7.0: Covers the task with relevant ideas, but lacks clarity or completeness in parts.
-      -Band 6.5: Addresses the task, but ideas are underdeveloped or partially relevant.
       -Band 6.0: Answers the task but with limited development or clarity; some irrelevant points.
-      -Band 5.5: Attempts the task but has many unclear or incomplete ideas; some may be off-topic.
       -Band 5.0: Limited response to the task with significant irrelevant or undeveloped ideas.
       2.Coherence and Cohesion (CC) - Logical Flow and Connections:
       -Band 9.0: Skillful use of cohesive devices with logical flow; easy to follow.
-      -Band 8.5: Mostly skillful with linking; minor lapses in flow or clarity.
       -Band 8.0: Generally well-organized; cohesive devices used effectively with minor issues.
-      -Band 7.5: Good use of linking words; minor problems with organization or clarity.
       -Band 7.0: Satisfactory cohesion but occasional lapses in structure or linking.
-      -Band 6.5: Some cohesion; lacks smooth flow or consistent structure.
       -Band 6.0: Uses linking words but not always effectively; can be hard to follow at times.
-      -Band 5.5: Limited cohesion; frequent lapses in organization make it difficult to follow.
       -Band 5.0: Poor cohesion; hard to follow due to weak organization or linking.
       3.Lexical Resource (LR) - Vocabulary Range and Accuracy:
       -Band 9.0: Wide and precise vocabulary with no errors.
-      -Band 8.5: Strong range, very few minor errors.
       -Band 8.0: Good range with few minor errors.
-      -Band 7.5: Adequate range with occasional inaccuracies.
       -Band 7.0: Sufficient range with some mistakes.
-      -Band 6.5: Limited but adequate vocabulary; noticeable errors.
       -Band 6.0: Sufficient vocabulary but with frequent errors.
-      -Band 5.5: Limited vocabulary with many errors.
       -Band 5.0: Very basic vocabulary with frequent mistakes affecting understanding.
       4.Grammatical Range and Accuracy (GRA) - Grammar:
       -Band 9.0: Varied structures with full accuracy.
-      -Band 8.5: Wide range, mostly accurate with minor errors.
       -Band 8.0: Good range with some minor errors.
-      -Band 7.5: Reasonable range with occasional mistakes.
       -Band 7.0: Some variety; noticeable errors.
-      -Band 6.5: Limited range; frequent but generally understandable errors.
       -Band 6.0: Limited structures with noticeable errors affecting understanding.
-      -Band 5.5: Basic structures with frequent errors that affect understanding.
       -Band 5.0: Very basic grammar with many serious errors making text hard to understand.
 
       Provide scores and comments for the range and accuracy of the 4 criteria in the following format:
