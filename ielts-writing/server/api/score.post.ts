@@ -66,7 +66,7 @@ export default defineEventHandler(async (event) => {
   `
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const response = await axios.post(
