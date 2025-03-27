@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
-  ssr: true, // REQUIRED
+  ssr: true,
   nitro: {
-    preset: 'netlify' // REQUIRED for Netlify compatibility
+    preset: 'netlify' 
   },
+  compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
   css: ['@fortawesome/fontawesome-free/css/all.css'],

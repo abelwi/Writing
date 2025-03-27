@@ -19,26 +19,26 @@
             </div>
             
             <div class="w-1/3">
-                <div v-if="state.apiResult.scoringResult" class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
+                <div v-if="state.apiResult.scoringResult && state.apiResult.scoringResult.overallBand" class="grid grid-cols-5 gap-x-1 text-center mb-10 bg-base-100 py-4 px-5 rounded-xl">
                     <div class="relative border bg-green-600 p-2 rounded-lg text-white h-24 w-20">
                         <p class="text-xs px-3">Band Score</p>
                         <p class="text-3xl font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.overallBand.score }}</p>
                     </div>
                     <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Task Response</p>
-                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.taskAchievement.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.taskAchievement?.score }}</p>
                     </div>
                     <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Coherence & Cohesion</p>
-                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.coherenceCohesion.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.coherenceCohesion?.score }}</p>
                     </div>
                     <div class="relative border bg-base-300 p-2 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Lexical Resource</p>
-                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.lexicalResource.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.lexicalResource?.score }}</p>
                     </div>
                     <div class="relative border bg-base-300 py-2 px-1 rounded-lg h-24 w-20">
                         <p class="text-xs font-thin">Grammatical Range & Accuracy</p>
-                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.grammaticalRangeAccuracy.score }}</p>
+                        <p class="font-semibold bottom-2 left-1/2 -translate-x-1/2 absolute">{{ state.apiResult.scoringResult.grammaticalRangeAccuracy?.score }}</p>
                     </div>
                 </div>
         
@@ -86,7 +86,7 @@
                             <p>{{ state.apiResult.scoringResult.overallComment }}</p>
                         </div>
 
-                        <div v-if="state.apiResult.correctionResult.errors.length">
+                        <div v-if="state.apiResult.correctionResult?.errors?.length">
                             <div class="flex pb-5 space-x-2 items-center">
                                 <img src="/images/attention.png" alt="attention" class="w-7 h-7">
                                 <p class="font-semibold">Những câu cần lưu ý:</p>
@@ -115,16 +115,16 @@
                             style="max-height: calc(75vh - 120px);"
                         >
                             <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Task Response</p>
-                            <p>{{ state.apiResult.scoringResult.taskAchievement.comment }}</p>
+                            <p>{{ state.apiResult.scoringResult.taskAchievement?.comment }}</p>
 
                             <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Coherence & Cohesion</p>
-                            <p>{{ state.apiResult.scoringResult.coherenceCohesion.comment }}</p>
+                            <p>{{ state.apiResult.scoringResult.coherenceCohesion?.comment }}</p>
 
                             <p class="font-semibold border border-orange-500 w-1/2 p-2 text-center text-orange-500 rounded-lg">Lexical Resource</p>
-                            <p>{{ state.apiResult.scoringResult.lexicalResource.comment }}</p>
+                            <p>{{ state.apiResult.scoringResult.lexicalResource?.comment }}</p>
 
                             <p class="font-semibold border border-orange-500 w-2/3 p-2 text-center text-orange-500 rounded-lg">Grammatical Range & Accuracy</p>
-                            <p>{{ state.apiResult.scoringResult.grammaticalRangeAccuracy.comment }}</p>
+                            <p>{{ state.apiResult.scoringResult.grammaticalRangeAccuracy?.comment }}</p>
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,6 @@ export default {
         const router = useRouter();
         const route = useRoute();
         const source = ref(route.query.source || 'demo');
-        
 
         const currentQuestion = source === 'demo' ? state.question : state.question;
         const currentAnswer = source === 'demo' ? state.answer : state.answer;
@@ -152,18 +151,15 @@ export default {
         const panel1 = ref(null);
         const panel2 = ref(null);
 
-        // Redirect to landing page if there's no API result
         onMounted(() => {
-            if (!state.apiResult.scoringResult && (!state.apiResult.correctionResult || !state.apiResult.correctionResult.errors.length)) {
+            if (!state.apiResult.scoringResult && (!state.apiResult.correctionResult || !state.apiResult.correctionResult.errors?.length)) {
                 router.push('/');
             }
         });
 
-
         const showTab = (tabNumber) => {
             activeTab.value = tabNumber;
 
-            // Reset scroll position
             if (tabNumber === 1) {
                 panel1?.value?.scrollTo(0, 0);
             }

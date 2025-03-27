@@ -7,7 +7,7 @@ export function useMyFunction() {
             correctionResult: {},
         };
 
-        try {
+        // try {
             const [scoringResponse, correctionResponse] = await Promise.all([
                 $fetch('/api/score', {
                     method: 'post',
@@ -21,10 +21,10 @@ export function useMyFunction() {
 
             state.apiResult.scoringResult = parseResultText(scoringResponse);
             state.apiResult.correctionResult = parseCorrectionText(correctionResponse);
-        } catch (error) {
-            console.error("🚨 Lỗi khi gọi API:", error);
-            alert('Lỗi kết nối đến máy chủ. Hãy thử lại sau vài phút nhé 🥲');
-        }
+        // } catch (error) {
+        //     console.error("🚨 Lỗi khi gọi API:", error);
+        //     alert('Lỗi kết nối đến máy chủ. Hãy thử lại sau vài phút nhé 🥲');
+        // }
     };
 
     const parseResultText = (resultText) => {
