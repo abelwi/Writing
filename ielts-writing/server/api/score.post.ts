@@ -37,14 +37,13 @@ export default defineEventHandler(async (event) => {
       -Band 6.0: Limited structures with noticeable errors affecting understanding.
       -Band 5.0: Very basic grammar with many serious errors making text hard to understand.
 
-      Provide scores and comments for the range and accuracy of the 4 criteria in the following format:
+      Provide scores for the range and accuracy of the 4 criteria in the following format:
 
-      Task Achievement (TA): (score - rounded to the nearest 0.5 and scored 1 band lower) - (nhận xét chi tiết cụ thể bằng Tiếng Việt, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
-      Coherence and Cohesion (CC): (score - rounded to the nearest 0.5 and scored 1 band lower) - (nhận xét chi tiết cụ thể bằng Tiếng Việt, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band, cho thêm ví dụ cải thiện bằng Tiếng Việt)
-      Lexical Resource (LR): (score - rounded to the nearest 0.5 and scored 1 band lower) - (nhận xét chi tiết cụ thể bằng Tiếng Việt, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
-      Grammatical Range and Accuracy (GRA): (score - rounded to the nearest 0.5 and scored 1 band lower) - (nhận xét chi tiết cụ thể bằng Tiếng Việt, giải thích tại sao bài làm lại được band điểm như vậy, đưa ra giải pháp để nâng band điểm, cho thêm ví dụ cải thiện bằng Tiếng Việt)
+      Task Achievement (TA): (score - rounded to the nearest 0.5 and scored 1 band lower)  
+      Coherence and Cohesion (CC): (score - rounded to the nearest 0.5 and scored 1 band lower) 
+      Lexical Resource (LR): (score - rounded to the nearest 0.5 and scored 1 band lower)  
+      Grammatical Range and Accuracy (GRA): (score - rounded to the nearest 0.5 and scored 1 band lower)  
       Overall Band: (score average of all 4 criteria, rounded to the nearest 0.5) 
-      Nhận xét tổng thể: (đưa lời khuyên chính xác tổng quát cho bài làm, nêu ra những hạn chế và ưu điểm của bài làm,... bằng Tiếng Việt)
 
       Focus particularly on the 4 criteria in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().
   `
