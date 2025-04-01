@@ -18,7 +18,7 @@
         </div>
       </div>
       
-      <div class="flex mt-10 bg-base-300 p-5 sm:p-10 shadow-inner space-x-2 sm:space-x-0">
+      <div class="flex mt-10 bg-base-300 p-5 sm:p-10 shadow-inner space-x-2 sm:space-x-0 h-80 lg:h-full">
         <div class="avatar">
           <div class="w-32 h-32 rounded-full shadow-inner drop-shadow-xl">
             <img src="../public/images/personal_avatar.jpg" />
