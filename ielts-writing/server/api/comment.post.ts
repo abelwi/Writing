@@ -18,26 +18,21 @@ export default defineEventHandler(async (event) => {
   }
 
   const commentPrompt = `
-    You are an expert evaluator for IELTS Writing Task 2. The prompt provided is "${question}" and you are assessing the response "${answer}".
-    Based on the essay and the given scores, provide detailed comments in Vietnamese for each criterion:
-     - Evaluate the strengths and weaknesses corresponding to the given band score
-     - Give advice for improving each skill (you may include a short example if helpful)
-     - Do not include the band scores in the feedback
+    Evaluate this Vietnamese IELTS response:
+    Answer: "${answer}"
+    Scores: TA=${scores.TA}, CC=${scores.CC}, LR=${scores.LR}, GRA=${scores.GRA}
 
-    Scores:
-     - Task Achievement (TA): ${scores.TA}
-     - Coherence and Cohesion (CC): ${scores.CC}
-     - Lexical Resource (LR): ${scores.LR}
-     - Grammatical Range and Accuracy (GRA): ${scores.GRA}
+    Feedback in Vietnamese, provide:
+    • Strengths and weaknesses based on the given band (not too long, no need to separate strengths and weaknesses)
+    • Advice for improvement (short examples if helpful)
+    • Do not mention the band scores in your feedback
 
-    Please respond using the following format: 
+    Use headings:
     Task Achievement (TA):
     Coherence and Cohesion (CC):
     Lexical Resource (LR):
     Grammatical Range and Accuracy (GRA):
     Nhận xét tổng thể:
-
-    Focus particularly on the 4 criteria in Writing. Avoid using additional symbols or numbers (#, *, 1, 2, 3,…) and don't call words in ().
   `;
 
   const controller = new AbortController();
