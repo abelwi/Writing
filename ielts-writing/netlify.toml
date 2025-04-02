@@ -1,10 +1,5 @@
 [build]
 command = "npm run build"
 publish = "dist" 
-
 [functions]
 directory = ".netlify/functions-internal" 
-
-[[functions]]
-  name = "Function"   # the function file name without the ".js"
-  timeout = 26
