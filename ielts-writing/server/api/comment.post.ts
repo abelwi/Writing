@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
     Feedback in Vietnamese, provide:
     • Strengths and weaknesses based on the given band (not too long, no need to separate strengths and weaknesses)
-    • Advice for improvement (short examples if helpful)
+    • Advice for improvement
     • Do not mention the band scores in your feedback
 
     Use headings:
