@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
 
   const commentPrompt = `
     Evaluate this Vietnamese IELTS response:
+    Question: "${question}"
     Answer: "${answer}"
     Scores: TA=${scores.TA}, CC=${scores.CC}, LR=${scores.LR}, GRA=${scores.GRA}
 

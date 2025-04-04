@@ -45,7 +45,7 @@ export function useMyFunction() {
       state.apiResult.correctionResult = parseCorrectionText(correctionResponse);
     } catch (error) {
       console.error("🚨 Lỗi khi gọi API:", error);
-      alert('Lỗi kết nối đến máy chủ. Hãy thử lại sau vài phút nhé 🥲');
+      alert('Lỗi kết nối đến máy chủ. Hãy thử lại nhé! 🥲');
     }
   };
 
